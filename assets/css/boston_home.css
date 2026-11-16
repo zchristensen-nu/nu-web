@@ -1,0 +1,64 @@
+/* --- boston_home: Boston campus (bos-), page glue only. --- */
+
+/* The founding-campus heading runs 100 characters: set at h2 so it holds three lines across ten columns, not four at h1. */
+.bos-statement .nu-statement__line{font-size:var(--fs-h2);font-weight:var(--fw-heading)}
+.bos-stats{margin-top:var(--head-gap)}
+.bos-stats .nu-stat__text strong{font-weight:var(--fw-medium);color:var(--on-surface)}
+
+/* Cards: four (resources) or three (New England) across from 960px, two from 720px; each is one link. */
+.bos-cards{display:grid;gap:var(--space-7) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.bos-cards>li{display:grid;min-width:0}
+/* Each card fills its row and its cue sits at the card's foot, so the links in a row share one line (they were 48-72px ragged). */
+.bos-card{height:100%;grid-template-rows:auto 1fr}
+.bos-card .nu-story-card__body{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-3)}
+.bos-card .bos-cue{margin-top:auto}
+.bos-card .nu-text--meta{margin-bottom:calc(var(--space-2) * -1)}  /* the eyebrow sits above the title (Zach 11-04), held close to it */
+.bos-card__text{color:var(--on-surface-2);max-width:42ch}
+.bos-cue{min-height:0;margin-top:var(--space-1)}
+.nu-story-card:hover .bos-cue{color:var(--link-hover)}
+@media (min-width:720px){.bos-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){
+  .bos-cards--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .bos-cards--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* Beyond New England: a native scrolling row that starts on the content edge and runs to the window's edge (the section is nu-section--bleed). */
+.bos-beyond>.nu-section-header{padding-inline:var(--layout-edge)}
+.bos-strip{display:grid;grid-auto-flow:column;grid-auto-columns:var(--size-card-m);gap:var(--layout-gutter);margin:0;
+  padding:0 var(--layout-edge) var(--space-4);list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--layout-edge);scrollbar-width:thin}
+.bos-strip__item{display:grid;min-width:0;scroll-snap-align:start}
+.bos-strip:focus-visible{outline:var(--border-focus) solid var(--focus);outline-offset:calc(var(--space-1) * -1)}
+.bos-strip__paddles{display:flex;justify-content:flex-end;gap:var(--space-3);padding:var(--space-4) var(--layout-edge) 0}
+.bos-strip__paddles[hidden]{display:none}
+@media not all and (min-width:720px){.bos-strip{grid-auto-columns:78%}}
+/* From 960px the cards take the four-column width of the resource cards above, so they land on the same column lines; the fifth
+   peeks in past the content edge, which says the row goes on (Zach 11-04: 21% left them 12px off the row above). */
+@media (min-width:960px){.bos-strip{grid-auto-columns:calc((100% - 3 * var(--layout-gutter)) / 4)}}
+/* --- end bos --- */
+/* Phones: the four resources as compact rows (square thumbnail beside the text), so four photographs don't stack full width. */
+@media not all and (min-width:720px){
+  .bos-cards--4{gap:var(--space-6)}
+  .bos-cards--4 .bos-card{grid-template-columns:var(--space-9) minmax(0,1fr);gap:var(--space-4);align-items:start}
+}
+/* Resources as CardGrid --list: a row holds photograph and text side by side, so the card's two-row template (for cue alignment in the
+   card rows) would add an empty row and a gap at each row's foot. */
+.nu-card-grid--list .bos-card{grid-template-rows:none;height:auto}
+
+/* The founding statement with its figures stacked beside it (impeccable critique 11-10: Boston's own number moment, not the shared
+   stat band). From 960px the statement holds columns 1-8 and the three figures run down columns 10-12, each on its own hairline. */
+@media (min-width:960px){
+  .bos-founding{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}
+  .bos-founding>.bos-statement{grid-column:1 / span 8}
+  .bos-founding>.bos-statement{display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--space-6)}
+  .bos-founding>.bos-statement>*{grid-column:1 / -1}
+  .bos-founding>.bos-statement .nu-statement__body .nu-text--lead{max-width:52ch}
+  .bos-founding>.bos-stats{border-top:0;padding-top:0}
+  .bos-founding>.bos-stats{grid-column:10 / -1;margin-top:0}
+  .bos-founding .bos-stats .nu-stat-band__stats{grid-auto-flow:row;grid-template-columns:minmax(0,1fr);row-gap:var(--space-6)}
+  .bos-founding .bos-stats .nu-stat-band__stats>.nu-stat--column:nth-child(n){padding-top:var(--space-5);border-top:var(--border-hair) solid var(--line)}
+  .bos-founding .bos-stats .nu-stat-band__stats>.nu-stat--column+.nu-stat--column::before{content:none}
+}
+/* Resources: the live eyebrow stays above each row's title on this page (Zach 11-04). The system's list sets meta under the title;
+   this page is rebuilt without eyebrows in the three takes. */
+.bos-resources .nu-card-grid--list .nu-story-card__body>:is(.nu-text--meta,.nu-meta-list){order:-1}
+@media (min-width:960px){.bos-resources .nu-card-grid--list .nu-story-card__body>:is(.nu-text--meta,.nu-meta-list){text-box:trim-start cap alphabetic}}

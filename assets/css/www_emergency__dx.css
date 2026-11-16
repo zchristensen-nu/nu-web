@@ -1,0 +1,86 @@
+/* Emergency information, the three takes (www_emergency__a / __b / __c): page glue, scoped under .pg-emergency-dx (a class the
+   takes put on their own blocks), tokens only. Each block is a workaround for a request in
+   build/reports/dx-library-requests/www_emergency.md; delete it when the library takes it. */
+
+/* 1. The measure, kept where Prose is not the block that holds it: a Prose that also carries definition rows and disclosures
+      (take B) runs the column's width, so its text is held to --layout-prose child by child; notes in rows hold the same. */
+.pg-emergency-dx.nu-prose{max-width:none}
+.pg-emergency-dx.nu-prose>:not(dl,.nu-accordion){max-width:var(--layout-prose)}
+.pg-emergency-dx__rows .nu-text{max-width:var(--measure-body)}
+
+/* 2. Definition rows (take B). One hairline per row across name and number (Prose rules the two cells apart, with the column
+      gap between them), and the names take three parts in eight so a row's lines hold the measure. */
+.pg-emergency-dx.nu-prose>dl{column-gap:0}
+@media (min-width:720px){
+  .pg-emergency-dx.nu-prose>dl{grid-template-columns:minmax(0,3fr) minmax(0,5fr)}
+  .pg-emergency-dx.nu-prose>dl>dd{padding-inline-start:var(--space-5)}
+}
+
+/* 3. Tap targets. On touch (any width with a coarse pointer, and every layout under 960px) a tel: link in a ContactItem or in
+      Prose is 44px tall: a fax or TTY line gets the same row as the main number (they are 21 to 42px in the patterns).
+      CallList's own numbers and further lines are the pattern's. */
+@media (pointer:coarse), not all and (min-width:960px){
+  .pg-emergency-dx :is(.nu-contact-item,.nu-contact-item__value,dd)>a[href^="tel:"],.pg-emergency-dx__pinned a[href^="tel:"]{display:inline-flex;align-items:center;min-height:var(--layout-target)}
+}
+
+/* 4. ContactBlock's rows with a number as the value (the pattern's rows are for people, with small contacts). From 720px the
+      name and the number share a baseline and the row's other lines stay directly under the name; from 960px the digits stand
+      on the page's column 10 line with the phone glyph hung in the gutter; on phones a row's numbers stack (the pattern wraps
+      them side by side, so a fax number lands beside the main one). --pg-cols: the columns the rows span (8 in a ContactBlock). */
+.pg-emergency-dx__rows{--pg-cols:8}
+.pg-emergency-dx__rows--wide{--pg-cols:12}
+@media (min-width:720px){
+  .pg-emergency-dx__rows>.nu-contact-block__person{align-items:baseline}
+  .pg-emergency-dx__rows .nu-contact-block__reach{grid-row:span 2}
+}
+@media (min-width:960px){
+  .pg-emergency-dx__rows>.nu-contact-block__person{column-gap:var(--layout-gutter);
+    grid-template-columns:calc((100% - (var(--pg-cols) - 1) * var(--layout-gutter)) / var(--pg-cols) * (var(--pg-cols) - 3) + (var(--pg-cols) - 4) * var(--layout-gutter)) minmax(0,1fr)}
+  .pg-emergency-dx__rows .nu-contact-item--lg>.nu-icon{margin-inline-start:calc((1.25em + var(--space-2)) * -1)}
+}
+@media not all and (min-width:720px){.pg-emergency-dx__rows .nu-contact-block__reach{flex-direction:column;flex-wrap:nowrap;gap:0}}
+
+/* 5. The numbers to call first, kept in view under the margin list (take B, from 960px; under 960px the list is a pinned bar
+      and they are not shown): each number at lead size with the phone glyph, a 44px row. */
+.pg-emergency-dx__pinned{display:none}
+@media (min-width:960px){
+  .pg-emergency-dx__pinned{display:grid;gap:var(--space-3);margin-top:var(--space-4);padding-top:var(--space-4);border-top:var(--border-hair) solid var(--line)}
+  .pg-emergency-dx__pinned a[href^="tel:"]{display:inline-flex;align-items:center;gap:var(--space-2);min-height:var(--layout-target);
+    font-size:var(--fs-lead);font-variant-numeric:tabular-nums lining-nums}
+}
+
+/* 6. Paper: an onward link in a row prints its address after its words (the library's print sheet does this for links in
+      Prose and in disclosure panels; a row's "Learn more" link is neither). */
+@media print{
+  .pg-emergency-dx__rows .nu-arrow-link[href^="http"]{overflow-wrap:anywhere}
+  .pg-emergency-dx__rows .nu-arrow-link[href^="http"]::after{position:static;content:" (" attr(href) ")";border:0;scale:none;font-weight:var(--fw-text)}
+}
+
+/* 7. Take A's first section: a centred stack. CallList sets its rows on the reading edge (who on four columns, the number
+      from column 5); the Center take sets each row on the axis: name and note, the number, then Call and Copy under it. */
+.pg-emergency-dx--stack .nu-call-list__item{justify-items:center;text-align:center}
+.pg-emergency-dx--stack .nu-call-list__who{justify-items:center}
+.pg-emergency-dx--stack .nu-call-list__who .nu-text{margin-inline:auto}
+.pg-emergency-dx--stack .nu-call-list__reach{justify-items:center}
+.pg-emergency-dx--stack .nu-call-list__call{justify-content:center}
+@media (min-width:960px){
+  .pg-emergency-dx--stack .nu-call-list__items{grid-template-columns:minmax(0,1fr)}
+  .pg-emergency-dx--stack .nu-call-list__item{grid-template-columns:minmax(0,1fr);grid-column:1}
+  .pg-emergency-dx--stack :is(.nu-call-list__who,.nu-call-list__reach){grid-column:1}
+  .pg-emergency-dx--stack .nu-call-list__reach{display:flex;flex-direction:column;align-items:center;gap:var(--space-4)}
+  .pg-emergency-dx--stack .nu-call-list__reach>.nu-call-list__call{display:flex;align-items:center;justify-content:center;gap:var(--space-5)}
+  .pg-emergency-dx--stack .nu-call-list__who>.nu-heading{text-box:none}
+}
+
+/* 8. Take C's Night slate: the Boston numbers two by two from 720px, each at h2 size, a 44px target. */
+.pg-emergency-dx__slate{display:grid;gap:var(--space-6) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.pg-emergency-dx__slate>li{display:grid;align-content:start;gap:var(--space-2);padding-top:var(--space-4);border-top:var(--border-hair) solid var(--line)}
+.pg-emergency-dx__slate .nu-text{max-width:var(--measure-body);color:var(--on-surface-2)}
+.pg-emergency-dx__slate-number{margin:0}
+.pg-emergency-dx__slate-number>a{display:inline-flex;align-items:center;min-height:var(--layout-target);font-size:var(--fs-h2);font-weight:var(--fw-title);
+  letter-spacing:var(--tracking-title);font-variant-numeric:tabular-nums lining-nums;color:var(--on-surface);text-decoration:underline;
+  text-decoration-thickness:var(--border-hair);text-underline-offset:.16em;text-decoration-color:var(--line-strong)}
+@media (hover:hover){.pg-emergency-dx__slate-number>a:hover{text-decoration-color:currentColor}}
+.pg-emergency-dx__slate a[href^="tel:"]{white-space:nowrap}
+@media (pointer:coarse), not all and (min-width:960px){.pg-emergency-dx__slate p:not(.pg-emergency-dx__slate-number)>a[href^="tel:"]{display:inline-flex;align-items:center;min-height:var(--layout-target)}}
+@media (min-width:720px){.pg-emergency-dx__slate{grid-template-columns:repeat(2,minmax(0,1fr))}}

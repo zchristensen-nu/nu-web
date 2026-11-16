@@ -1,0 +1,18 @@
+/* Co-op, the three takes (el_coop__a / __b / __c): page glue, scoped under .pg-coop-dx (a class the page puts on its own
+   sections), tokens only. Each rule stands in for something an organism cannot yet take; the requests are in
+   build/reports/dx-library-requests/el_coop.md, and a rule goes when its request lands. No motion here. */
+
+/* 2. The definition as an index block (take B): PointList's head holds the heading and a picture, and the column beside it
+      starts with a paragraph, not a claim row, so the head gives up the offset that lines it up with a first row and stands
+      one heading gap above its picture. */
+@media (min-width:960px){.pg-coop-dx .nu-point-list>.nu-point-list__head{padding-top:0}}
+.pg-coop-dx .nu-point-list__head{gap:var(--space-6)}
+/*    The head now holds columns 1–6 (the rows start on the column 7 reading edge); the 4:5 picture keeps four of them, so it
+      stays shorter than the rows beside it. */
+@media (min-width:960px){.pg-coop-dx .nu-point-list__head>img{width:calc((100% + var(--layout-gutter)) * 4 / 6 - var(--layout-gutter))}}
+/* 3. The questions under a centred heading (take A): the AccordionItems and handbooks on the centre axis at the long-document
+      measure (a split header's body does this by its column; a centred header has no body column to hold a list). */
+.pg-coop-dx .cx-faq-center{max-width:var(--layout-prose);margin-inline:auto}
+/* 4. The five lines run their column, one line each, so the rows are equal (PointList holds a claim to 40ch for one-sentence
+      claims with a body under them; these are single short lines). */
+.pg-coop-dx .nu-point-list__claim{max-width:none}

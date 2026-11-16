@@ -1,0 +1,36 @@
+/* External Affairs home, the three takes (ea_home__a / __b / __c): page glue, scoped under .pg-ea-dx (a class the page puts on
+   its own sections), tokens only. Each rule stands in for something a component cannot yet take as an argument; the requests are
+   in build/reports/dx-library-requests/ea_home.md, and a rule goes when its request lands. No motion here. */
+
+/* 1. One call target per number (all three takes): the number is the call link at every width, so the touch-only Call pill
+      that repeats it is not shown (review r2, C3: "keep one, and make the choice identical in A, B and C"). */
+.pg-ea-dx .nu-call-list__dial{display:none}
+/* 2. The media line on the centre axis (take a): "For media" sits close over its sentence and the sentence a step above the
+      number; the number stands on the axis with Copy beside it (Copy under the number on phones). */
+.pg-ea-dx .ea-media-c{gap:var(--space-3)}
+.pg-ea-dx .ea-media-c>.nu-section-header__body{gap:var(--space-4)}
+.pg-ea-dx .ea-media-c>.nu-section-header__body>.nu-text{max-width:none;text-wrap:balance}
+.pg-ea-dx .ea-media-c>.nu-section-header__body>.ea-call{margin-top:var(--space-1)}
+.pg-ea-dx .ea-call{justify-self:stretch}
+.pg-ea-dx .ea-call>.nu-call-list__call{justify-content:center}
+@media (min-width:720px){
+  .pg-ea-dx .ea-call>.nu-call-list__call{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+  .pg-ea-dx .ea-call .nu-call-list__number{grid-column:2}
+  .pg-ea-dx .ea-call .nu-call-list__copy{grid-column:3;justify-self:start}
+}
+/* 3. The media row inside the hero's aside (take b): its own line under the pill; "For media" and the number on one first
+      baseline from 960px; on phones the hero's picture follows the contact, so the number and email are in the first screen. */
+.pg-ea-dx .ea-contact{flex-basis:100%;margin-top:var(--space-5)}
+@media (min-width:960px){.pg-ea-dx .ea-contact .nu-call-list__item{align-items:baseline}}
+@media not all and (min-width:960px){
+  .pg-ea-dx.nu-hero-offset>:not(.nu-hero-offset__media){order:-1}
+  .pg-ea-dx.nu-hero-offset>.nu-hero-offset__media{margin-top:var(--space-6)}
+  .pg-ea-dx.nu-hero-offset>.nu-hero-offset__title{padding-top:var(--space-7)}   /* the title no longer sits under the picture */
+}
+/* 4. The Northeastern Global News wordmark as a section heading: the mark stands at the heading's x-height (it is heavier than
+      the headings), the heading's box is the mark's, and the link's target grows around it without moving it. */
+.pg-ea-dx .ea-ngn{position:relative;display:flex;padding-block:0}
+.pg-ea-dx .ea-ngn::before{content:"";position:absolute;inset-inline:0;inset-block:calc(var(--space-3) * -1)}
+.pg-ea-dx .ea-ngn .st-ngn-wordmark{height:1ex}
+/* 5. Roster: the skip link's landing point is a grid item after the last group, so the roster's 48px group gap stood after the
+      last list and the seam below read 48px wide; the landing point takes no gap. */

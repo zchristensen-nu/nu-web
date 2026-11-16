@@ -1,0 +1,17 @@
+/* Bento for hand-built lists (AI people, Entrepreneurship features and founders): the same lead-plus-two as CardGrid --bento
+   (Zach 11-02/11-03), on a <ul class="bento"> whose items are a photograph followed by their text. From 960px the first item leads on
+   columns 1-7 and the other two stack on 8-12; the pair sets the height and the lead's photograph fills what its text leaves, so the
+   three end on one line. --rows sets the pair as rows (a small 4:5 portrait beside the text), for people with long bios.
+   Below 960px the page's own list layout stands. Tokens only. */
+@media (min-width:960px){
+  ul.bento.bento{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto auto;column-gap:var(--layout-gutter);row-gap:var(--space-8);align-items:start}
+  ul.bento.bento>li{grid-column:8 / -1;grid-row:auto;grid-template-rows:none;grid-auto-rows:auto}
+  ul.bento.bento>li:first-child{grid-column:1 / span 7;grid-row:1 / span 2;grid-template-rows:minmax(0,1fr);align-self:stretch;height:100%}
+  ul.bento.bento>li:first-child>.nu-image{contain:size;height:100%;min-height:calc(var(--space-10) * 3);aspect-ratio:auto;object-fit:cover}
+  ul.bento.bento>li:first-child>.nu-heading{font-size:var(--fs-h2);font-weight:var(--fw-heading);line-height:var(--lh-heading)}
+  ul.bento.bento>li:not(:first-child)>.nu-image{aspect-ratio:3/2}
+
+  ul.bento.bento--rows>li:not(:first-child){grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--layout-gutter);align-content:start}
+  ul.bento.bento--rows>li:not(:first-child)>.nu-image{grid-column:1 / span 2;grid-row:1 / span 6;align-self:start;margin:0;aspect-ratio:4/5}
+  ul.bento.bento--rows>li:not(:first-child)>:not(.nu-image){grid-column:3 / -1}
+}

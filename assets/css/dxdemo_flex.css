@@ -1,0 +1,6 @@
+/* docs/dx/flex/: the flex family gallery (build/pages/dxdemo_flex.py). Review page glue for the gallery's own labels, scoped under
+   .dxf-*; tokens only. The patterns themselves carry no glue. */
+.dxf-nav{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);margin:0;padding:0;list-style:none}
+.dxf-tag{position:relative;z-index:2;display:grid;gap:var(--space-2);padding:var(--space-7) var(--layout-edge) var(--space-5);border-top:var(--border-rule) solid var(--line-strong);background:var(--surface)}
+.dxf-tag .nu-text{max-width:var(--measure-lead);margin:0;color:var(--on-surface-2)}
+.dxf-tag .nu-heading{margin:0}

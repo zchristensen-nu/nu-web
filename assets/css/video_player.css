@@ -1,0 +1,42 @@
+/* Content films with designed controls (build/pages/_player.py, build/js/video_player.js). The poster with one large glass play
+   button; once started, a glass bar of IconButtons, time and a seek line in ink (never red on Night). The bar fades while the film
+   plays and the pointer rests. Tokens only. */
+.vp{position:relative;overflow:hidden;background:var(--surface-sunken);color:var(--on-surface)}
+.vp__play[hidden],.vp__bar[hidden]{display:none}
+.vp__video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;cursor:pointer}
+.vp:fullscreen .vp__video{height:100%;aspect-ratio:auto;object-fit:contain;background:var(--surface)}
+
+.vp__play{position:absolute;inset:0;display:grid;place-items:center;width:var(--space-9);height:var(--space-9);margin:auto;padding:0;
+  border:0;border-radius:var(--radius-pill);font-size:var(--fs-h3);color:var(--on-surface);cursor:pointer;
+  background:var(--surface-glass);-webkit-backdrop-filter:blur(var(--layout-blur));backdrop-filter:blur(var(--layout-blur));box-shadow:var(--shadow-lg);
+  transition:opacity var(--dur-base) var(--ease-out),scale var(--dur-base) var(--ease-out),background-color var(--dur-fast) var(--ease-out)}
+.vp__play:hover,.vp:has(.vp__video:hover) .vp__play{scale:1.06;color:var(--on-action);background:var(--action)}
+.vp.is-started .vp__play{opacity:0;scale:.9;pointer-events:none}
+
+.vp__bar{position:absolute;inset:auto var(--space-4) var(--space-4);display:flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-1) var(--space-3) var(--space-1) var(--space-1);border-radius:var(--radius-pill);
+  background:var(--surface-glass);-webkit-backdrop-filter:blur(var(--layout-blur));backdrop-filter:blur(var(--layout-blur));box-shadow:var(--shadow-md);
+  transition:opacity var(--dur-base) var(--ease-out),translate var(--dur-base) var(--ease-out)}
+.vp:not(.is-started) .vp__bar{opacity:0;translate:0 var(--space-3);visibility:hidden}
+.vp.is-playing.is-idle .vp__bar{opacity:0;translate:0 var(--space-3)}
+.vp.is-playing.is-idle{cursor:none}
+.vp__bar .nu-icon-button{flex:none;border-color:transparent;background:transparent;color:var(--on-surface)}
+.vp__bar .nu-icon-button:hover{background:var(--action);color:var(--on-action)}
+.vp__toggle>.nu-icon+.nu-icon,.vp__mute>.nu-icon+.nu-icon{display:none}
+.vp:not(.is-playing) .vp__toggle>.nu-icon:first-child{display:none}
+.vp:not(.is-playing) .vp__toggle>.nu-icon+.nu-icon{display:inline-block}
+.vp__mute[aria-pressed="true"]>.nu-icon:first-child{display:none}
+.vp__mute[aria-pressed="true"]>.nu-icon+.nu-icon{display:inline-block}
+.vp__time{flex:none;min-width:4ch;font-size:var(--fs-small);font-weight:var(--fw-medium);font-variant-numeric:tabular-nums lining-nums;color:var(--on-surface-2)}
+
+.vp__seek{flex:1;min-width:0;height:var(--layout-target);margin:0;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
+.vp__seek::-webkit-slider-runnable-track{height:var(--border-focus);border-radius:var(--radius-pill);
+  background:linear-gradient(var(--on-surface),var(--on-surface)) left / var(--vp-progress,0%) 100% no-repeat,var(--line-strong)}
+.vp__seek::-moz-range-track{height:var(--border-focus);border-radius:var(--radius-pill);background:var(--line-strong)}
+.vp__seek::-moz-range-progress{height:var(--border-focus);border-radius:var(--radius-pill);background:var(--on-surface)}
+.vp__seek::-webkit-slider-thumb{width:var(--space-3);height:var(--space-3);margin-top:calc((var(--space-3) - var(--border-focus)) / -2);
+  border:0;border-radius:var(--radius-pill);background:var(--on-surface);-webkit-appearance:none;appearance:none}
+.vp__seek::-moz-range-thumb{width:var(--space-3);height:var(--space-3);border:0;border-radius:var(--radius-pill);background:var(--on-surface)}
+
+/* Phones: no seek line beside four controls; the time and the toggles stay. */
+@media not all and (min-width:720px){.vp__seek,.vp__time--total{display:none}.vp__bar{inset-inline-end:auto}}

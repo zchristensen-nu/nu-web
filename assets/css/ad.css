@@ -1,0 +1,28 @@
+/* Art direction (Zach 11-03: "almost too structured"; fewer 3/4-column sections, size and shape making the hierarchy as you scroll).
+   Scoped under .ad, the art-directed page (the only version since Zach 11-04; the structured snapshot is in build/pages-archive/).
+   Images and shapes leave the grid; text keeps the one reading edge. Everything here applies from 960px; phones keep the stacked
+   layouts. Tokens only. Bleeds use the band as a size container: (100cqw - 100vw) / 2 is the band's edge padding, negated. */
+
+.ad{overflow-x:clip}
+
+@media (min-width:960px){
+  .ad>.nu-unit-home__band{container-type:inline-size}
+  /* Bled media widen with the screen; their height stops here, so wide screens crop them wider instead of making them taller. */
+  .ad{--ad-max-media:calc(var(--space-10) * 5)}
+
+  /* ── Experiential learning ── */
+
+  /* Stories: the two read as equals (Zach 11-04: equal content gets equal weight; one large, one small left a 237px hole). */
+
+  /* ── Research ── */
+
+  /* Breakthroughs: the photograph runs the full content width and the copy sits on a panel set into its lower-right corner,
+     hanging below it. Its left padding is one column pitch, so the copy starts on column 9 with the topic rows above it. */
+  .re-home.ad .re-break{grid-template-rows:auto var(--space-8)}
+  .re-home.ad .re-break .nu-media-text__media{grid-column:1 / -1;grid-row:1}
+  .re-home.ad .re-break .nu-media-text__media>.nu-image{aspect-ratio:2/1;max-height:var(--ad-max-media);object-fit:cover}
+  .re-home.ad .re-break .nu-media-text__copy{grid-column:8 / -1;grid-row:1 / span 2;align-self:end;position:relative;z-index:1;
+    padding:var(--space-8) 0 0 calc((100% + var(--layout-gutter)) / 5);background:var(--surface)}
+
+  /* Impact makers: CardGrid --expand (impeccable critique 11-04: the stagger stays AI's alone). */
+}

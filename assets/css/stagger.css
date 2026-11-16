@@ -1,0 +1,6 @@
+/* Stagger for hand-built lists (AI people, the global university system's stories): the CardGrid --stagger rhythm on a
+   <ul class="stagger">, equal items with every other one dropped a step from 960px (Zach 11-04: equal weight, but not a table).
+   Replaces the lead-plus-two bento, whose big lead photograph was heavy-handed. Tokens only. */
+@media (min-width:960px){
+  ul.stagger>li:nth-child(even){margin-top:var(--space-9)}
+}

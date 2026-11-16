@@ -1,0 +1,97 @@
+/* --- www_gus: Our global university system (gus-), page glue only. The globe is the DS organism gus-globe. --- */
+
+/* Quick Links: the label hangs in columns 1-6, the seven links run from the reading edge (column 7) in two ruled columns. */
+.gus-quick{display:grid;gap:var(--space-4);border-bottom:var(--border-hair) solid var(--line)}
+.gus-quick__label{margin:0}
+.gus-quick__list{display:grid;margin:0;padding:0;list-style:none;border-top:var(--border-hair) solid var(--line)}
+.gus-quick__list>li{border-bottom:var(--border-hair) solid var(--line)}
+.gus-quick__link{gap:var(--space-2);justify-content:space-between}
+.gus-quick__link .nu-icon{flex:none;color:var(--on-surface-muted)}
+@media (min-width:720px){.gus-quick__list{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--layout-gutter)}}
+@media (min-width:960px){
+  .gus-quick{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}
+  .gus-quick__label{grid-column:1 / span 6;padding-top:var(--space-3)}
+  .gus-quick__list{grid-column:7 / -1}
+}
+
+
+/* The globe's campus card: the live line in secondary ink; the chips sit a step below the link. */
+
+/* Story and destination cards: four or three across from 960px, two from 720px. */
+.gus-cards{display:grid;gap:var(--space-7) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.gus-cards>li{display:grid;min-width:0}
+.gus-card .nu-story-card__body{gap:var(--space-3)}
+.gus-card__text{color:var(--on-surface-2);max-width:36ch}
+.gus-cue{min-height:0;margin-top:var(--space-1)}
+.nu-story-card:hover .gus-cue{color:var(--link-hover)}
+.gus-connect__h{max-width:var(--measure-heading);margin:0 auto var(--head-gap);text-align:center}
+@media (min-width:720px){.gus-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){
+  .gus-cards--4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .gus-cards--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+/* Phones: the four stories as compact rows, so four photographs don't stack full width. */
+@media not all and (min-width:720px){
+  .gus-cards--4{gap:var(--space-5)}
+  .gus-cards--4 .nu-story-card{grid-template-columns:var(--space-9) minmax(0,1fr);gap:var(--space-4);align-items:start}
+}
+/* --- end gus --- */
+/* The campus card's text shares the photograph's edge (the organism insets it by --space-2, a near miss). */
+.gus-globe .nu-gus-globe__campus-body{padding-inline:0}
+/* Phones: the live copy and fourteen chips make a tall panel; the step runs longer so the globe is seen whole before the panel rises over it. */
+@media not all and (min-width:960px){.gus-globe.is-live .nu-gus-globe__step:first-child{min-height:135svh}}
+
+/* Audit polish (Zach 11-04). Every step's text runs five columns (the stat rules ran 255 and 297 wide, and the chips orphaned
+   "Oakland" in four), and each step stat's rule spans that measure. */
+@media (min-width:960px){
+  .gus-globe .nu-gus-globe__text{max-width:none;width:calc((100% - 11 * var(--layout-gutter)) * 5 / 12 + 4 * var(--layout-gutter))}
+}
+.gus-globe .gus-step-stat{justify-self:stretch}
+/* Zoomed steps turn the globe under the text column: a scrim in the band's ground keeps the text on a clear field. */
+@media (min-width:960px){
+  .gus-globe.is-live .nu-gus-globe__stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,var(--surface) 0,var(--surface) 22%,transparent 48%)}
+}
+/* The tour ends a step after N.U.in rather than 534px of empty band later. */
+.gus-globe.is-live .nu-gus-globe__steps{padding-bottom:0}
+.gus-globe.is-live .nu-gus-globe__step:last-child{min-height:60svh}
+/* Phones: the glass panel runs edge to edge, so its text keeps the 20px edge every other section uses (an inset panel put it at 44). */
+@media not all and (min-width:960px){
+  .gus-globe.is-live .nu-gus-globe__text{margin-inline:calc(var(--layout-edge) * -1);width:calc(100% + var(--layout-edge) * 2);padding-inline:var(--layout-edge);border-radius:0}
+}
+/* Quick links: the list's own hairlines close it on the content width; the band drops its full-bleed rule. The label sits on the
+   first link's line. */
+.gus-quick{border-bottom:0}
+@media (min-width:960px){.gus-quick__label{padding-top:calc((var(--layout-target) - 1lh) / 2)}}
+
+/* The hero, centred (Zach 11-04: "center the heading above the globe"): from 960px the heading, line, link and the campus chips sit
+   centred on ten columns (the eight graduate campuses fit one row) at the top of the stage, and the globe rises under them from the foot of the viewport (www_gus.js, the
+   hero camera). The later steps keep the left column beside the globe; the left scrim only shows for them. */
+@media (min-width:960px){
+  .gus-globe .nu-gus-globe__step:first-child{justify-content:center}
+  .gus-globe .nu-gus-globe__step:first-child .nu-gus-globe__text{width:calc((100% - 11 * var(--layout-gutter)) * 10 / 12 + 9 * var(--layout-gutter));justify-items:center;text-align:center}
+  .gus-globe .nu-gus-globe__step:first-child .nu-text--lead{max-width:52ch}
+  .gus-globe .nu-gus-globe__step:first-child .nu-gus-globe__chip-groups{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4) var(--space-7)}
+  .gus-globe .nu-gus-globe__step:first-child .nu-gus-globe__chip-group{display:grid;justify-items:center}
+  .gus-globe .nu-gus-globe__step:first-child .nu-gus-globe__chips{justify-content:center}
+  .gus-globe.is-live .nu-gus-globe__stage::after{transition:opacity var(--dur-slow) var(--ease-out)}
+  .gus-globe:has(.nu-gus-globe__step:first-child[data-active]) .nu-gus-globe__stage::after{opacity:0}
+}
+
+/* Immersed in the world in two columns (Zach 11-04: "so these images are larger"): two stories a row on halves of the grid, the right
+   column still dropped a step (stagger), titles at h3 to suit the larger photographs. */
+@media (min-width:960px){
+  .gus-news .gus-cards--4{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--space-8)}
+  .gus-news .gus-cards--4 .nu-story-card__title{font-size:var(--fs-h3);font-weight:var(--fw-title);line-height:var(--lh-title);max-width:24ch}
+}
+/* Inactive steps stay readable (impeccable critique 11-04: dimmed to .32 they measured about 2:1 on Night); the active step still leads. */
+@media (prefers-reduced-motion:no-preference){.gus-globe.is-live .nu-gus-globe__text{opacity:.6}}
+
+/* An open campus card owns the stage (impeccable critique 11-10: on desktop it opened over the hero copy, and the globe's labels drew
+   over the chips). From 960px the step text fades out while a card is open, as it already does on phones, and comes back on close
+   or on scrolling to the next step; the card's close button and Escape still return focus to the chip. */
+@media (min-width:960px){
+  .gus-globe .nu-gus-globe__steps{transition:opacity var(--dur-base) var(--ease-out)}
+  .gus-globe.has-card .nu-gus-globe__steps,.gus-globe.has-card .nu-gus-globe__text{opacity:0;pointer-events:none}
+  .gus-globe.has-card .nu-gus-globe__stage::after{opacity:0}
+}

@@ -1,0 +1,7 @@
+/* Academics, the three takes (www_academics__a / __b / __c): page glue, scoped under .pg-academics-dx (a class the page puts on
+   its own sections), tokens only. One rule, which stands in for a request in build/reports/dx-library-requests/www_academics.md
+   and goes when that request lands. No motion here.
+
+   The sibling bar travels at the top of the window, so whatever pins under it starts below it: the bar's height is the pinned
+   patterns' --sticky-offset (IndexRows' and NameWall's frames) (request 1). */
+.pg-academics-dx.wwa-quick~*{--sticky-offset:var(--space-8)}

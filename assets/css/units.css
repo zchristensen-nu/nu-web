@@ -1,0 +1,54 @@
+/* Unit homes (el_home, research_home, entre_home, boston_home): page glue only. Every class is un- prefixed or scoped under .un-home, because
+   build.py links this file on every Batch 1 page. Tokens only. */
+
+/* Section seams and the gap under a SectionHeader are the design system's (css/section.css, --head-gap); nothing here sets them. */
+
+/* Theme claims carry a place and a link under their sentence. */
+.un-home .un-claim__where{color:var(--on-surface-muted)}
+.un-home .nu-unit-home__claim>.nu-arrow-link{justify-self:start;margin-top:var(--space-2)}
+
+/* PointList rows with an onward link under the sentence. */
+.un-home .un-point-link{justify-self:start;margin-top:var(--space-2)}
+
+/* A second NewsFeature (a trio) under a band's first organism, a chapter apart. */
+.un-home .un-trio{margin-top:var(--space-9)}
+
+
+/* Entrepreneurship's Night feature: the overlay, then its three stories on the same ground. */
+.un-home .un-coop{background:var(--surface);color:var(--on-surface)}
+.un-home .un-coop-stories{padding-top:var(--space-8)}
+
+/* Theme claims (research): name, sentence, place and link share rows across the three, so every link sits on one line. */
+@media (min-width:960px){
+  .un-home .un-claims--3{row-gap:0}
+  .un-home .un-claims--3>.nu-unit-home__claim{grid-row:span 5;grid-template-rows:subgrid;row-gap:var(--space-3)}
+}
+/* Entrepreneurship's Night feature opens with a split MediaText (the band's own top), then its stories. */
+.un-home .un-coop>.un-coop-hero{padding-bottom:0}
+
+/* Rail paddles: the scrolling rail gets previous/next buttons on pointer devices (phones swipe). Outline circles, so the first
+   paddle's edge sits on the content edge rather than its glyph floating 12px in; a disabled end keeps its outline, dimmed. */
+.un-rail .un-rail__paddles{display:none;gap:var(--space-2);margin-inline-end:auto}
+@media (min-width:960px) and (hover:hover){.un-rail .un-rail__paddles{display:flex}}
+.un-rail .un-rail__paddles>[disabled]{border-color:var(--line)}
+
+
+/* Bespoke number moments (impeccable critique 11-10: the same stat band ran on six pages). */
+/* Overlay: the figures on a photograph's foot, three across on the grid from 960px. */
+.un-overlay{position:relative;margin:0;overflow:hidden;background:var(--surface-sunken);color:var(--on-surface)}
+.un-overlay>.nu-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.un-overlay>.nu-scrim{position:absolute;inset:0}
+.un-overlay__stats{position:relative;display:grid;gap:var(--space-6);margin:0;padding:calc(var(--space-10) * 2) var(--space-6) var(--space-6);list-style:none}
+.un-overlay__stat{display:grid;gap:var(--space-2);align-content:end}
+.un-overlay__stat .nu-numeral{font-size:var(--fs-display)}
+.un-overlay__text{margin:0;max-width:28ch;font-size:var(--fs-body);line-height:var(--lh-body);color:var(--on-surface-2)}
+@media (min-width:960px){
+  .un-overlay{aspect-ratio:21/10;display:flex;align-items:flex-end}
+  .un-overlay__stats{width:100%;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto;column-gap:var(--layout-gutter);row-gap:var(--space-2);padding:var(--space-8)}
+  .un-overlay__stat{grid-row:span 2;grid-template-rows:subgrid;align-content:start}  /* numerals on one line, captions hang below */
+}
+/* Sentence: the figures read as one line of display type, the numerals in ink, their phrases muted. */
+.un-sentence{margin:0;max-width:36ch;font-size:var(--fs-h2);font-weight:var(--fw-display);line-height:var(--lh-heading);letter-spacing:var(--tracking-heading);
+  color:var(--on-surface-muted);text-wrap:balance}
+.un-sentence__part{display:inline}
+.un-sentence__num{font-weight:var(--fw-heading);color:var(--on-surface)}

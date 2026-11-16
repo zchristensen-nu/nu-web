@@ -1,0 +1,45 @@
+/* --- www_emergency (wwa-): page glue for northeastern.edu/emergency-information/. Tokens only. --- */
+/* Chapters on the reading edge: the live h3 group heading in columns 1-6, its content from column 7. */
+.wwa-em-ch__body{display:grid;gap:var(--space-4);justify-items:start;min-width:0;margin-top:var(--space-6)}
+.wwa-em-ch__body>.nu-text{max-width:var(--layout-prose)}
+.wwa-em-ch__body>.nu-heading+.nu-text,.wwa-em-ch__body>.nu-heading+.wwa-em-tel{margin-top:calc(var(--space-2) * -1)}
+.wwa-em-ch__body>.nu-text+.nu-heading{margin-top:var(--space-5)}
+@media (min-width:960px){
+  .wwa-em-ch{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}
+  .wwa-em-ch::before{grid-column:1 / -1}
+  .wwa-em-ch__head{grid-column:1 / span 6;text-box:trim-start cap alphabetic}
+  .wwa-em-ch__body{grid-column:7 / -1;margin-top:0}
+  .wwa-em-ch__body>:first-child{text-box:trim-start cap alphabetic}
+}
+
+/* Numbers are the action: set large enough to read and tap under stress, tabular, a 44px target. */
+.wwa-em-tel{margin:0;font-size:var(--fs-h3);font-weight:var(--fw-title);line-height:var(--lh-title);font-variant-numeric:tabular-nums lining-nums}
+.wwa-em-tel a{display:inline-flex;align-items:center;min-height:var(--layout-target)}
+.wwa-em-tel--lead{font-size:var(--fs-h2)}
+.wwa-em-tel__who{font-size:var(--fs-body);font-weight:var(--fw-text);color:var(--on-surface-2)}
+.wwa-em-line{margin:0;color:var(--on-surface-2);max-width:46ch}
+
+/* Offices and numbers: two by two on hairlines from 720px, one column on phones. */
+.wwa-em-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0 var(--layout-gutter);width:100%;margin-bottom:calc(var(--space-6) * -1)}  /* the last row's foot padding is not part of the seam */
+.wwa-em-office{display:grid;gap:var(--space-2);align-content:start;justify-items:start;padding-block:var(--space-5) var(--space-6);border-top:var(--border-hair) solid var(--line)}
+.wwa-em-office>.nu-heading{margin-bottom:var(--space-1)}
+.wwa-em-office__links{margin-top:var(--space-2)}
+@media (min-width:720px){.wwa-em-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* The first row opens under the chapter heading on space alone; the hairlines part the rows after it. */
+.wwa-em-grid>.wwa-em-office:first-child{padding-top:0;border-top:0}
+@media (min-width:720px){.wwa-em-grid>.wwa-em-office:nth-child(2){padding-top:0;border-top:0}}
+
+/* Audit polish (Zach 11-04). Two offices to a row: titles hold two lines, so the numbers under them share a line (a wrapped title
+   pushed its neighbour's number 28px out), and each office's links sit at its foot. */
+@media (min-width:720px){
+  .wwa-em-office{display:flex;flex-direction:column;align-items:flex-start}
+  .wwa-em-office>.nu-heading{min-height:2lh}
+  .wwa-em-office>.wwa-em-office__links{margin-top:auto;padding-top:var(--space-2)}
+}
+/* A link that wraps keeps its arrow on its last word, not at the far end of the line. */
+.wwa-em-office .nu-arrow-link{display:inline-block;min-height:0;padding-block:var(--space-2)}
+.wwa-em-office .nu-arrow-link>.nu-icon{display:inline;vertical-align:-0.125em;margin-inline-start:var(--space-2)}
+/* The details read at body leading. */
+.wwa-em-line{line-height:var(--lh-body)}
+/* Phones: the number's owner sits under the number, not wrapped beside it. */
+@media not all and (min-width:720px){.wwa-em-tel__who{display:block}}

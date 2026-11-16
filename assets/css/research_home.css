@@ -1,0 +1,40 @@
+/* research home (research_home, rebuilt from the live page 2026-11-02): page glue only, scoped under .re-home / .re-hero, because build.py
+   links this file on every page. Tokens only. */
+
+/* The film's title is three short sentences: let it run wider than the organism's 11ch so each sits on its own line. */
+
+/* The pause control sits level with "Discover More" at the right of the stage instead of stacking under it (Zach 11-02): this
+   hero has no lineup to fill the right side. */
+
+/* Opportunities: each card is one link (4:5 photo, title, sentence, cue). A column on phones, three across from 720px. */
+.re-home .re-cards{display:grid;gap:var(--space-8);margin:0;padding:0;list-style:none}
+.re-home .re-card{display:grid;gap:var(--space-3);align-content:start;justify-items:start;color:inherit;text-decoration:none}
+.re-home .re-card__media{display:block;width:100%;overflow:hidden;margin-bottom:var(--space-2);background:var(--surface-sunken)}
+.re-home .re-card__media .nu-image{transition:scale var(--dur-slow) var(--ease-out)}
+.re-home .re-card:hover .nu-image{scale:1.03}
+.re-home .re-card__text{max-width:38ch;color:var(--on-surface-2)}
+@media (min-width:720px){.re-home .re-cards{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--layout-gutter)}}
+
+/* People and stories: the cue under each card. */
+.re-home .re-person__note{color:var(--on-surface-muted)}
+.re-home .re-person__cue,.re-home .re-news .nu-story-card__body>.nu-arrow-link{margin-top:var(--space-2);justify-self:start}
+.re-home .re-news__links{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6)}
+
+/* Every cue sits on one line across its row, whatever the length of the text above it. */
+.re-home .re-cards>li{display:grid}
+.re-home .re-card{grid-template-rows:auto auto 1fr auto}
+.re-home .re-people .nu-person-card,.re-home .re-news li:not(.nu-card-grid__lead)>.nu-story-card{grid-template-rows:auto 1fr}
+.re-home .re-people .nu-person-card__body{grid-template-rows:auto auto auto 1fr}
+.re-home .re-news .nu-story-card__body{grid-template-rows:auto auto 1fr}
+.re-home .re-person__cue,.re-home .re-news .nu-story-card__body>.nu-arrow-link{align-self:end}
+
+/* Phones: the opportunity photographs drop to 3:2 so three cards don't run three screens long; the grid sits closer to its heading. */
+@media not all and (min-width:720px){
+  .re-home .re-card__media .nu-image{aspect-ratio:3/2}
+}
+/* Phones: Impact makers as one column of horizontal cards (portrait beside the text); two columns of 163px squeezed the notes to seven
+   lines (Zach 11-04 audit). */
+@media not all and (min-width:720px){
+  .re-home .re-people .nu-card-grid__items:where(.nu-card-grid:not(.nu-card-grid--uneven) *){grid-template-columns:minmax(0,1fr)}
+  .re-home .re-people .nu-person-card{grid-template-columns:minmax(0,2fr) minmax(0,3fr);grid-template-rows:none;column-gap:var(--space-4);align-items:start}
+}

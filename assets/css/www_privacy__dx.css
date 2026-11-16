@@ -1,0 +1,76 @@
+/* Privacy, the three takes (www_privacy__a / __b / __c): page glue, scoped under .pg-privacy-dx (a class the takes put on
+   their own blocks), tokens only. Each block is a workaround for a request in build/reports/dx-library-requests/www_privacy.md;
+   delete it when the library takes it. */
+
+/* 1. Take B: the text ends on the column 10 line, the key links' edge (five columns and five gutters of the eight the text's
+      column spans), never wider than Prose's own measure. (The measure itself is the library's now: --layout-prose, 53ch,
+      a mean of 65 characters a full line in this face.) */
+@media (min-width:960px){.pg-privacy-dx--grid.nu-prose{max-width:min(var(--layout-prose),calc((100% + var(--layout-gutter)) * .625))}}
+
+/* 2. Section numerals. The numeral is part of the heading (it reads "IV. How we share…") and, for a pointer, a link to its
+      own section. From 960px it hangs in the margin, so the sixteen names keep one edge and the numerals make a column of
+      their own; under 960px it runs in the heading's line and is text only. */
+.pg-privacy-dx__num{color:var(--on-surface-muted);font-variant-numeric:tabular-nums lining-nums;text-decoration:none;transition:color var(--dur-fast) var(--ease-out)}
+@media (hover:hover){a.pg-privacy-dx__num:hover{color:var(--on-surface)}}
+@media not all and (min-width:960px){a.pg-privacy-dx__num{pointer-events:none}}
+@media (min-width:960px){
+  .pg-privacy-dx.nu-prose>h2{position:relative}
+  .pg-privacy-dx.nu-prose>h2>.pg-privacy-dx__num{position:absolute;inset-inline-end:100%;min-width:var(--layout-target);min-height:var(--layout-target);padding-inline-end:var(--space-5);text-align:end;white-space:nowrap}
+}
+/*    Under 960px a sub-heading sits one clear step under its section's heading (they are 22 and 19px there, both weight 400). */
+@media not all and (min-width:960px){.pg-privacy-dx.nu-prose h3{font-size:var(--fs-lead);font-weight:var(--fw-medium)}}
+
+/* 3. Placements Prose does not have: the centred column (take A), and a gutter for the numerals from 960px (take C: the text
+      stands on the names' edge of the index above it). */
+.pg-privacy-dx--center{margin-inline:auto}
+.pg-privacy-dx{--pg-num:calc(var(--space-8) + var(--space-2))}
+@media (min-width:960px){.pg-privacy-dx--gutter{margin-inline-start:var(--pg-num)}}
+
+/*    A section's links to its sub-headings (a nav under its heading): from 1200px they stand in the margin beside the
+      section's first lines, on the next column line right of the text (in take B on the key links' column, where the text
+      ends), so they take no room in the text; under 1200px they are one line under the heading. */
+.pg-privacy-dx__subs ul{margin:0;padding:0;list-style:none;font-size:var(--fs-small);line-height:var(--lh-title)}
+.pg-privacy-dx__subs li{margin:0;padding:0}
+@media not all and (min-width:1200px){
+  .pg-privacy-dx__subs li{display:inline}
+  .pg-privacy-dx__subs li:not(:last-child)::after{content:", "}
+}
+@media (min-width:1200px){
+  .pg-privacy-dx__subs ul{display:grid;gap:var(--space-2)}
+  .pg-privacy-dx.nu-prose{position:relative}
+  .pg-privacy-dx.nu-prose>nav{position:absolute;inset-inline-start:calc(100% + var(--layout-gutter));width:var(--size-card-s)}
+  .pg-privacy-dx--grid.nu-prose>nav{inset-inline-start:100%;width:calc((100% - 5 * var(--layout-gutter)) / 5 * 3 + 2 * var(--layout-gutter))}
+}
+
+/* 4. The way back: an ArrowLink whose arrow points up, so it travels up. */
+.pg-privacy-dx__top{margin:0}
+@media (hover:hover){.pg-privacy-dx__top .nu-arrow-link:hover .nu-icon{translate:0 calc(var(--space-1) * -1)}}
+
+/* 5. The seven entities of section IV, two to a row from 720px (each stays a paragraph with its own lines). */
+.pg-privacy-dx__entities{display:grid;gap:var(--space-4) var(--space-5)}
+@media (min-width:720px){.pg-privacy-dx__entities{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* 7. Take C's contents: sixteen numbered links at h4 size, the numerals in a column of their own, two columns from 720px. */
+.pg-privacy-dx__index>ol{display:grid;margin:0;padding:0;list-style:none;border-bottom:var(--border-hair) solid var(--line)}
+.pg-privacy-dx__index li{break-inside:avoid;border-top:var(--border-hair) solid var(--line)}
+.pg-privacy-dx__index li{display:grid}
+.pg-privacy-dx__index a{display:grid;grid-template-columns:var(--pg-num) minmax(0,1fr);align-items:baseline;min-height:var(--layout-target);padding-block:var(--space-2);
+  font-size:var(--fs-h4);font-weight:var(--fw-regular);line-height:var(--lh-title);letter-spacing:var(--tracking-title);color:var(--on-surface);
+  text-decoration:underline;text-decoration-thickness:var(--border-hair);text-underline-offset:.22em;text-decoration-color:transparent;transition:text-decoration-color var(--dur-fast) var(--ease-out)}
+@media (hover:hover){.pg-privacy-dx__index a:hover{text-decoration-color:currentColor}}
+.pg-privacy-dx__index a:focus-visible{outline-offset:calc(var(--border-focus) * -1)}
+/*    Two columns from 720px on shared rows, so a name that wraps raises its neighbour's row too and the hairlines line up. */
+@media (min-width:720px){.pg-privacy-dx__index>ol{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(8,auto);grid-auto-flow:column;column-gap:var(--layout-gutter)}}
+@media not all and (min-width:720px){.pg-privacy-dx__index a{--pg-num:calc(var(--space-7) + var(--space-1))}}
+
+
+/* 8. Paper: the hanging numerals run in the heading's line (the margin they hang in is not on the sheet). The rest of the
+       print sheet is the library's; the takes mark their own navigation with data-print="hide". */
+@media print{.pg-privacy-dx.nu-prose>h2>.pg-privacy-dx__num{position:static;padding:0;min-width:0;min-height:0}}
+
+/* 9. Take A on phones: what follows the contents bar pins under the unit header alone. */
+@media not all and (min-width:720px){.pg-privacy-dx--foot~*{--sticky-offset:var(--sticky-base,0px)}}
+
+/* 10. Take C on phones: the numerals bar is two lines there (the section's name over the chips), but the pattern's 88px height
+       is overridden by its own later root rule, so anchors cleared only 64px and landed 3px under the bar. Said outright. */
+@media not all and (min-width:720px){:root:has(.pg-privacy-dx.nu-contents-bar:where(:not(.nu-contents-bar--chapters))){--contents-bar-h:calc(var(--space-8) + var(--space-6))}}

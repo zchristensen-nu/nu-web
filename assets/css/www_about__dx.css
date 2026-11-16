@@ -1,0 +1,19 @@
+/* About, the three takes (www_about__a / __b / __c): page glue, scoped under .pg-about-dx (a class the page puts on its own
+   sections), tokens only, no motion. Each rule stands in for something the library does not have yet; the requests are in
+   build/reports/dx-library-requests/www_about.md and a rule goes when its request lands.
+   1. Wayfinding bar (all three): the Breadcrumb is set into the SiblingNav bar ahead of its row, on the content edge, and the
+      links range right; the bar keeps the content edge for both, and the row's own label gives way to the breadcrumb. Below
+      960px the breadcrumb stands over the row and scrolls away with the page; only the row stays pinned. */
+.pg-about-dx-way{display:grid;grid-template-columns:minmax(0,1fr);align-items:center;column-gap:var(--space-6);padding-inline:var(--layout-edge)}
+.pg-about-dx-way>.nu-section-nav--horizontal{min-width:0;padding-inline:0}
+.pg-about-dx-way .nu-section-nav__label{display:none}
+.pg-about-dx-way>.nu-breadcrumb{display:flex;align-items:center;min-height:var(--layout-target)}
+@media (min-width:960px){
+  .pg-about-dx-way{grid-template-columns:auto minmax(0,1fr)}
+  .pg-about-dx-way .nu-section-nav__list{justify-content:flex-end}
+}
+@media not all and (min-width:960px){.pg-about-dx-way.nu-sibling-nav--travel{top:calc(var(--sticky-offset) - var(--layout-target))}}
+/* 2. The map beside "Opportunity is always in motion" (B): the live graphic is transparent line art, so it sits on the page's
+      own ground, whole, at its own shape. */
+.pg-about-dx-map .nu-media-text__media,.pg-about-dx-map .nu-media-text__media>.nu-image{background:none}
+.pg-about-dx-map .nu-media-text__media>.nu-image{width:100%;height:auto}

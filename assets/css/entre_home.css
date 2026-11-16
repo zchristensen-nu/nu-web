@@ -1,0 +1,65 @@
+/* entrepreneurship home (entre_home, rebuilt from the live page 2026-11-02): page glue only, scoped under .en-home / .en-hero, because
+   build.py links this file on every page. Tokens only. */
+
+.en-hero .nu-hero-page__copy .nu-heading{max-width:13ch}
+
+/* Ecosystem: header, figures, then the closing paragraph on the reading edge. */
+.en-home .en-after{margin-top:var(--space-8)}
+.en-home .en-after>.nu-text{max-width:52ch}  /* the section header's lead measure, so the two paragraphs end alike */
+@media (min-width:960px){
+  .en-home .en-after{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
+  .en-home .en-after>.nu-text{grid-column:7 / -1;max-width:none}
+}
+
+/* Three offerings on columns 1, 5 and 9; rows shared from 960px so the links sit on one line. A row subgrid takes the list's row gap
+   wherever it differs from its own (the difference lands in the rows), so the list's row gap matches the cards' --space-3 (Zach 11-04:
+   a one-line eyebrow sat in a 52px row). */
+.en-home .en-features{display:grid;gap:var(--space-8);margin:0;padding:0;list-style:none}
+.en-home .en-feature{display:grid;gap:var(--space-3);align-content:start;justify-items:start;min-width:0}
+.en-home .en-feature>.nu-image{width:100%;margin-bottom:var(--space-3)}
+.en-home .en-feature .nu-text--meta{color:var(--on-surface-muted)}
+.en-home .en-feature__text{max-width:38ch;color:var(--on-surface-2)}
+@media (min-width:960px){
+  .en-home .en-features{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--layout-gutter);row-gap:var(--space-3)}
+  .en-home .en-feature{grid-row:span 5;grid-template-rows:subgrid;row-gap:var(--space-3)}
+  .en-home .en-feature>.nu-arrow-link{align-self:end}
+}
+
+/* Founders on Night: heading on columns 1–8, three founders on columns 1, 5 and 9, then the awards under one hairline. */
+.en-home .en-founders__title{max-width:24ch;margin-inline:auto;text-align:center}  /* two lines, not a staircase of three */
+.en-home .en-founders__list{display:grid;gap:var(--space-8);margin:var(--head-gap) 0 0;padding:0;list-style:none}
+.en-home .en-founder{display:grid;gap:var(--space-3);align-content:start;justify-items:start;min-width:0}
+.en-home .en-founder>.nu-image{width:100%;margin-bottom:var(--space-3)}
+.en-home .en-founder__role{color:var(--on-surface-2)}
+.en-home .en-founder__text{display:grid;gap:var(--space-3);max-width:40ch}
+.en-home .en-founder__text>.nu-text{color:var(--on-surface-2)}
+@media (min-width:960px){
+  .en-home .en-founders__list{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--layout-gutter);row-gap:var(--space-3)}
+  .en-home .en-founder{grid-row:span 5;grid-template-rows:subgrid;row-gap:var(--space-3)}
+  .en-home .en-founder>.nu-arrow-link{align-self:end}
+}
+
+/* Phones: the offering photographs drop to 3:2 so the three don't run three screens long. */
+@media not all and (min-width:720px){.en-home .en-feature>.nu-image{aspect-ratio:3/2}}
+
+/* Awards: a labelled list under the founders (Zach 11-04: "needs a redesign"). One hairline opens it; the label holds columns 1-6,
+   the three awards run from column 7 (the reading edge) as ruled rows: the award, who gave it, and the giver's mark in one fixed box at the row's end,
+   so marks of any shape take the same space. */
+.en-home .en-awards-block{display:grid;gap:var(--space-5);margin-top:var(--space-9);padding-top:var(--space-6);border-top:var(--border-hair) solid var(--line)}
+.en-home .en-awards{margin:0;padding:0;list-style:none;border-bottom:var(--border-hair) solid var(--line)}
+.en-home .en-award{display:grid;grid-template-columns:minmax(0,1fr) calc(var(--space-10) * 1.25);align-items:center;column-gap:var(--space-6);
+  padding-block:var(--space-5);border-top:var(--border-hair) solid var(--line)}
+.en-home .en-award__text{display:grid;gap:var(--space-1);min-width:0}
+.en-home .en-award__name{margin:0}
+.en-home .en-award__org{margin:0;color:var(--on-surface-2)}
+.en-home .en-award__box{display:flex;align-items:center;justify-content:flex-end;height:var(--space-8)}
+.en-home .en-award__mark{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+@media (min-width:960px){
+  .en-home .en-awards-block{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}
+  .en-home .en-awards__title{grid-column:1 / span 6;padding-top:var(--space-5)}
+  .en-home .en-awards{grid-column:7 / -1}
+}
+@media not all and (min-width:720px){
+  .en-home .en-award{grid-template-columns:minmax(0,1fr) var(--space-9);column-gap:var(--space-4)}
+  .en-home .en-award__box{height:var(--space-7)}
+}

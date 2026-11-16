@@ -1,0 +1,78 @@
+/* --- www_about / www_academics / www_privacy / www_emergency (wwa-): page glue shared by builder A's four pages, plus About's own.
+   build.py links every build/css file on every page, so every rule here is wwa- prefixed or scoped under .wwa-page. Tokens only. --- */
+
+/* Quick links: the live "About" / "Academics" nav as a SiblingNav row on one hairline under the hero, on the content edge. */
+/* It sticks to the top once scrolled past (Zach 11-04, on AI), on the page's ground so content passes under it. */
+.wwa-quick{position:sticky;top:0;z-index:var(--z-sticky);background:var(--surface);padding-inline:var(--layout-edge);border-bottom:var(--border-hair) solid var(--line)}
+
+/* Chapters. Each Canvas chapter (.wwa-ch) is a section that asks for the system's chapter hairline (nu-section--ruled in the
+   markup): two in a row meet on one rule at the content width, midway in one chapter gap. Rhythm is the design system's. */
+
+/* Text cards (StoryCard markup without a date): the sentence is secondary to the title. */
+.wwa-page .nu-story-card__excerpt{color:var(--on-surface-2)}
+
+/* Intro: the paragraph is the page's opening statement, set at lead size on the reading edge. */
+.wwa-intro .wwa-intro__lead{max-width:56ch}
+
+/* About, Opportunity is always in motion: the live map graphic is transparent line art, so it sits on the page's own ground. */
+.wwa-motion__map,.wwa-motion__map>.nu-image{background:none}
+.wwa-motion__map>.nu-image{width:100%;height:auto}
+.wwa-motion strong{font-weight:var(--fw-medium)}
+
+/* Campuses: a native scrolling row. Four square cards fill the content width and the fifth shows in the right edge, so the row reads
+   as more; the track bleeds to the viewport and snaps each card to the content edge. Phones show one and a third. */
+.wwa-campuses{container-type:inline-size}
+/* The band clips the bleed, so a classic scrollbar's width (100vw counts it) never becomes a page-wide sideways scroll. */
+.wwa-page .st-band:has(>.wwa-campuses){overflow-x:clip}
+.wwa-campuses__track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - var(--layout-gutter) * 3) / 4);gap:var(--layout-gutter);
+  margin:0 calc(50cqw - 50vw);padding:0 calc(50vw - 50cqw) var(--space-5);list-style:none;overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;scroll-padding-inline:calc(50vw - 50cqw);scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.wwa-campuses__track:focus-visible{outline-offset:calc(var(--border-focus) * -1)}
+.wwa-campuses__item{display:grid;min-width:0;scroll-snap-align:start}
+.wwa-campuses__item .nu-story-card__excerpt{font-size:var(--fs-small);line-height:var(--lh-body)}
+.wwa-campuses__paddles{display:none}
+@media (min-width:960px) and (hover:hover){
+  .wwa-campuses__paddles:not([hidden]){display:flex;gap:var(--space-2);margin-top:var(--space-5)}
+  .wwa-campuses__paddles>[disabled]{border-color:var(--line)}
+}
+@media not all and (min-width:960px){.wwa-campuses__track{grid-auto-columns:calc((100% - var(--layout-gutter) * 2) / 3);margin-bottom:calc(var(--space-5) * -1)}}  /* no paddles here: the scrollbar's gutter sits inside the seam */
+@media not all and (min-width:720px){.wwa-campuses__track{grid-auto-columns:72%;gap:var(--space-4)}}
+
+/* A pair of square photographs with their copy (About's two media-text cards, Academics' Provost and Admissions):
+   halves of the 12 columns, the copy hanging on the photograph's edge. */
+.wwa-pair{display:grid;gap:var(--space-8);grid-template-columns:minmax(0,1fr)}
+.wwa-pair__item{display:grid;gap:var(--space-4);align-content:start;justify-items:start;min-width:0}
+.wwa-pair__media{margin:0 0 var(--space-2);width:100%;overflow:hidden;background:var(--surface-sunken)}
+.wwa-pair__item>.nu-text{max-width:46ch;color:var(--on-surface-2)}
+.wwa-pair__links{display:grid;justify-items:start;align-content:start;gap:var(--space-2);margin-top:var(--space-1)}  /* a lone link stays under its sentence when the neighbour has two (they share the row) */
+@media (min-width:720px){.wwa-pair{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--layout-gutter)}}
+/* The two halves share rows (photograph, heading, sentence, links), so a heading that wraps in one doesn't push the other's copy and
+   links out of line (they ran 39px apart); halves of the twelve columns, so no column sits empty inside or beside the pair (Zach
+   11-04: "massive gap"). The right half starts on column 7, the president's copy edge below. */
+@media (min-width:720px){
+  .wwa-pair{row-gap:0}
+  .wwa-pair__item{grid-row:span 4;grid-template-rows:subgrid;row-gap:var(--space-4)}
+}
+@media (min-width:960px){
+  .wwa-pair{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr))}
+  .wwa-pair__item:first-child{grid-column:1 / span 6}
+  .wwa-pair__item:last-child{grid-column:7 / -1}
+}
+
+/* President: the square portrait in columns 1-5, the copy from column 7 sitting on its lower edge. */
+.wwa-president .nu-featured-person__body{gap:var(--space-5)}
+.wwa-president .nu-heading--h1{max-width:12ch}
+
+/* Big ideas, big results: heading, the StatBand on its own hairline, then the live link under the figures on the content edge. */
+.wwa-results .nu-stat-band:where(:not(.nu-stat-band--slate))+.nu-arrow-link{margin-top:var(--space-7)}
+
+/* Academics hero: the live pair of actions, apply first (the one red action), visit as an outline pill. */
+.wwa-hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+
+/* Our campuses as a typographic wall (About's signature; impeccable critique 11-04). The names flow at h2 size in light type, each
+   with its place set small and muted after it; a name underlines on hover and focus. */
+.wwa-campus-wall{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-6);margin:0;padding:0;list-style:none}
+.wwa-campus-wall__link{display:inline-flex;align-items:baseline;gap:var(--space-2);min-height:var(--layout-target);font-size:var(--fs-h2);font-weight:var(--fw-heading);
+  line-height:var(--lh-heading);letter-spacing:var(--tracking-heading);color:var(--on-surface);text-decoration:none;text-underline-offset:.16em;text-decoration-thickness:var(--border-hair)}
+.wwa-campus-wall__link:hover,.wwa-campus-wall__link:focus-visible{text-decoration-line:underline}
+.wwa-campus-wall__place{font-size:var(--fs-small);font-weight:var(--fw-text);letter-spacing:0;color:var(--on-surface-muted)}

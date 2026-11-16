@@ -1,0 +1,72 @@
+/* Global university system, the three takes (www_gus__a / __b / __c): page glue, scoped under .pg-gus-dx (a class the page puts
+   on its own sections), tokens only. Each rule stands in for something a pattern or the GusGlobe organism cannot yet take; the
+   requests are in build/reports/dx-library-requests/www_gus.md, and a rule goes when its request lands. No motion here. */
+
+/* 1. Take A's campus index: the 14 names as one centred row of NavLinks in the rail's header, wrapping on narrow windows
+   (request 15: a rail has no index of its items). */
+.pg-gus-dx .gx-index__list{display:flex;flex-wrap:wrap;justify-content:center;column-gap:var(--space-4);margin:0;padding:0;list-style:none}
+.pg-gus-dx .gx-index .nu-nav-link{font-size:var(--fs-small);white-space:nowrap}
+
+/* 2. Take A's stage: the globe as a still hero. It has one step, which the current page's glue (www_gus.css) shortens as the
+   tour's last step; here it is the whole stage, a window high. Phones: the copy panel opaque, as on take C. */
+.pg-gus-dx.gx-stage.is-live .nu-gus-globe__step:first-child{min-height:var(--layout-window)}
+@media not all and (min-width:960px){.pg-gus-dx.gx-stage.is-live .nu-gus-globe__text{background:var(--surface);backdrop-filter:none;border-top:var(--border-hair) solid var(--line)}}
+
+/* 3. Take C, the globe (request 3, declined this round: one page's art direction stays page glue). The organism and the current
+   page's globe glue (www_gus.css, .gus-globe) do the rest. */
+/* The figures at the system's one oversized step, each with its sentence at lead size and no rule. */
+.pg-gus-dx.gx-globe .gx-stat{display:grid;justify-items:start;gap:var(--space-3);min-width:0}
+.pg-gus-dx.gx-globe .gx-stat .nu-numeral{margin-inline-start:-.06em;font-size:var(--fs-display-xl)}   /* the numerals' side bearing, so 1, 3 and 8 stand on the text edge */
+.pg-gus-dx.gx-globe .gx-stat .nu-text--small{color:var(--on-surface-2)}
+.pg-gus-dx.gx-globe .nu-gus-globe__text>.gx-stat:not(:first-child){margin-top:var(--space-5)}
+/* Steps are close together now, so the globe turns under the text column while a step is still being read: the column's
+   shade (www_gus.css) is whole across the column and lets go just past it, so no pin or dot passes under a line. */
+@media (min-width:960px){.pg-gus-dx.gx-globe.is-live .nu-gus-globe__stage::after{background:linear-gradient(90deg,var(--surface) 0,var(--surface) 40%,transparent 54%)}}
+/* The campus types in the last step take the panel's width. */
+.pg-gus-dx.gx-globe .nu-gus-globe__text>.nu-key-value{justify-self:stretch}
+/* The campuses: one row of names on the foot of the window for as long as the globe is on screen, the pause control at its end.
+   It comes before the steps in the document (the keyboard reaches the campuses first) and is held on the window's foot from
+   both sides; it rides above the steps, so their text passes behind it. The steps start where the stage starts. */
+.pg-gus-dx.gx-globe{--gx-rail:var(--space-8)}
+.pg-gus-dx .gx-rail{position:sticky;top:calc(var(--layout-window) - var(--gx-rail));bottom:0;z-index:2;box-sizing:border-box;display:flex;align-items:center;gap:var(--space-5);
+  height:var(--gx-rail);padding-inline:var(--layout-edge);background:var(--surface);border-top:var(--border-hair) solid var(--line)}
+.pg-gus-dx.gx-globe.is-live .nu-gus-globe__steps{margin-top:calc((var(--layout-window) + var(--gx-rail)) * -1)}
+/* Where the row is longer than the window it scrolls sideways under a fade (ChapterRail's idiom). */
+.pg-gus-dx .gx-rail__list{display:flex;flex:1;justify-content:space-between;min-width:0;margin:0 0 0 calc(var(--space-2) * -1);padding:0 var(--space-7) 0 0;list-style:none;
+  overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;mask-image:linear-gradient(to right,var(--on-surface) calc(100% - var(--space-7)),transparent)}
+.pg-gus-dx .gx-rail__list::-webkit-scrollbar{display:none}
+.pg-gus-dx .gx-rail__list>li{flex:none}
+/* Each name carries its own side padding (the row's first name still stands on the content edge), so the focus ring clears it. */
+.pg-gus-dx .gx-rail .nu-nav-link{position:relative;min-height:calc(var(--space-8) - var(--border-hair));padding-inline:var(--space-2);font-size:var(--fs-small);white-space:nowrap}
+.pg-gus-dx .gx-rail .nu-nav-link:focus-visible{outline-offset:calc(var(--border-focus) * -1)}
+/* The chosen campus: full ink and a short rule on the rail's hairline (canvas on Night, never red). */
+.pg-gus-dx .gx-rail .nu-nav-link[aria-current="true"]::before{content:"";position:absolute;inset:0 var(--space-2) auto;height:var(--border-focus);background:var(--on-surface)}
+/* The tour is compact: after the title each step is as tall as its text and one gap, so the three figures pass in about a
+   screen; the last step ends on the rail. A step the reader has passed keeps its full strength; only what is still to come
+   steps back. */
+@media (min-width:960px){
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__step:not(:first-child){min-height:0;padding-block:var(--space-8)}
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__step:last-child{padding-bottom:calc(var(--space-8) + var(--space-9))}
+}
+.pg-gus-dx.gx-globe.is-live .nu-gus-globe__step:has(~ .nu-gus-globe__step[data-active]) .nu-gus-globe__text{opacity:1}
+/* Phones: the title is on the first screen (the current page holds its panel back for the chips); every panel is opaque, so the
+   globe's labels never show through a figure; panels and the campus card stand clear of the rail. */
+/* Phones: every campus name in view, the strip wrapping to three rows of 44px targets; the pause control stands on the globe just
+   above the strip. */
+@media not all and (min-width:720px){
+  .pg-gus-dx.gx-globe{--gx-rail:calc(var(--layout-target) * 3 + var(--space-3) * 2)}
+  .pg-gus-dx .gx-rail{align-items:flex-start;padding-block:var(--space-3)}
+  .pg-gus-dx .gx-rail__list{flex-wrap:wrap;justify-content:flex-start;overflow:visible;padding-inline-end:0;mask-image:none}
+  .pg-gus-dx .gx-rail .nu-nav-link{min-height:var(--layout-target)}
+  .pg-gus-dx .gx-rail>.nu-media-control{position:absolute;inset-block-end:calc(100% + var(--space-4));inset-inline-end:var(--layout-edge)}
+}
+@media not all and (min-width:960px){
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__step{padding-bottom:calc(var(--gx-rail) + var(--space-5))}
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__step:first-child{min-height:88svh}
+  /* The figures after the first pass in shorter steps and the last step is as tall as its panel, so the tour is three screens
+     shorter than five and ends on the rail. */
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__step:nth-child(n+3){min-height:54svh}
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__step:last-child{min-height:0;padding-top:var(--space-8)}
+  .pg-gus-dx.gx-globe.is-live .nu-gus-globe__text{background:var(--surface);backdrop-filter:none;border-top:var(--border-hair) solid var(--line)}
+  .pg-gus-dx.gx-globe .nu-gus-globe__card{bottom:calc(var(--gx-rail) + var(--space-4))}
+}

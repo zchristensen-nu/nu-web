@@ -1,0 +1,50 @@
+/* The shuffle pages' review chrome (build/js/mix.js). Nothing between sections: one small pill in the window's lower right corner
+   (previous, the shuffle mark, next) acts on the section in view, and the mark opens a panel above it with that section's
+   designs. It is the review tool, not the page: Night (data-mode="dark": the system's dark tokens) on any ground, a soft shadow to lift it off pictures, kept clear of
+   the page's content edge. The section the panel acts on takes a hairline outline in the action colour while the panel is open. */
+.mx-ctl{position:fixed;right:var(--space-4);bottom:var(--space-4);z-index:calc(var(--z-header) + 1);display:grid;justify-items:end;gap:var(--space-2);
+  font-family:var(--font-sans);font-size:var(--fs-small);line-height:var(--lh-title)}
+.mx-bar{display:flex;align-items:center;gap:var(--space-1);padding:var(--space-1);border-radius:var(--radius-pill);
+  color:var(--on-surface);background:var(--surface);box-shadow:var(--shadow-md)}
+.mx-fab,.mx-tool{display:grid;place-items:center;width:var(--space-6);height:var(--space-6);padding:0;border:0;border-radius:var(--radius-pill);
+  color:inherit;background:none;cursor:pointer;transition:background-color var(--dur-fast) var(--ease-out),opacity var(--dur-fast) var(--ease-out)}
+.mx-tool{opacity:.72}
+.mx-fab .nu-icon,.mx-tool .nu-icon{width:var(--space-4);height:var(--space-4)}
+@media (hover:hover){.mx-fab:hover,.mx-tool:hover{opacity:1;background:var(--hover-fill)}}
+.mx-fab:active,.mx-tool:active{background:var(--line)}
+.mx-ctl.is-open .mx-fab{color:var(--surface);background:var(--on-surface)}
+.mx-fab:focus-visible,.mx-tool:focus-visible{outline:var(--border-focus) solid var(--focus);outline-offset:var(--border-focus)}
+
+.mx-panel{width:min(calc(var(--size-card-xs) * 2), calc(100vw - 2 * var(--space-4)));max-height:min(70vh, calc(var(--space-10) * 6));overflow:auto;
+  padding:var(--space-4);border-radius:var(--radius-md);color:var(--on-surface);background:var(--surface);box-shadow:var(--shadow-lg)}
+.mx-panel[hidden]{display:none}
+.mx-panel__head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3);margin-bottom:var(--space-3)}
+.mx-panel__name{margin:0;font-weight:var(--fw-medium);text-wrap:balance}
+.mx-panel__count{flex:none;font-variant-numeric:tabular-nums;color:var(--on-surface-muted)}
+.mx-panel__opts{display:grid;gap:var(--border-hair);margin:0;padding:0;list-style:none}
+.mx-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);width:100%;min-height:var(--space-6);padding:0 var(--space-3);
+  border:0;border-radius:var(--radius-sm);font:inherit;text-align:start;color:var(--on-surface-2);background:none;cursor:pointer;
+  transition:background-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out)}
+.mx-row .nu-icon{flex:none;width:var(--space-3);height:var(--space-3);opacity:0}
+@media (hover:hover){.mx-row:hover{color:var(--on-surface);background:var(--hover-fill)}}
+.mx-row[aria-pressed="true"]{color:var(--on-surface);background:var(--surface-raised)}
+.mx-row[aria-pressed="true"] .nu-icon{opacity:1}
+.mx-row:focus-visible,.mx-link:focus-visible{outline:var(--border-focus) solid var(--focus);outline-offset:calc(var(--border-focus) * -1)}
+.mx-panel__foot{display:grid;gap:var(--space-2);margin-top:var(--space-3);padding-top:var(--space-3);border-top:var(--border-hair) solid var(--line)}
+.mx-panel__note{margin:0;color:var(--on-surface-muted)}
+.mx-panel__acts{display:flex;gap:var(--space-4)}
+.mx-link{padding:0;border:0;font:inherit;font-weight:var(--fw-medium);color:var(--on-surface);background:none;cursor:pointer;text-decoration:underline;
+  text-decoration-color:var(--line-strong);text-underline-offset:.2em}
+@media (hover:hover){.mx-link:hover{text-decoration-color:var(--on-surface)}}
+
+/* The section the open panel acts on. */
+.mx-opt.mx-on{outline:var(--border-focus) solid var(--action);outline-offset:calc(var(--border-focus) * -1)}
+@media (prefers-reduced-motion:reduce){.mx-fab,.mx-tool,.mx-row{transition:none}}
+/* Seams (mix.js `seams`): each design sits in its own wrapper, so section.css cannot see its neighbours; the script marks the
+   edges between places with the gap section.css gives two siblings. One class each, after nu-ds.css: they outrank section.css
+   (one class) and lose to a component's own padding (two classes), as on an assembled page. */
+.mx-pb-0{padding-bottom:0}
+.mx-pb-gap{padding-bottom:var(--section-gap)}
+.mx-ruled{background-image:linear-gradient(var(--line),var(--line));background-repeat:no-repeat;
+  background-position:center calc(var(--sg) / 2);background-size:calc(100% - 2 * var(--layout-edge)) var(--border-hair)}
+.mx-ruled:not(.nu-section--tight,.nu-section--standard,.nu-section--chapter){--sg:var(--section-gap-chapter)}

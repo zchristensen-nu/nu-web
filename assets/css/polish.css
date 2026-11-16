@@ -1,0 +1,55 @@
+/* Cross-page polish from the 11-04 design audit (Zach: "a senior designer should not have to give feedback on alignment and spacing").
+   Rules here fix a pattern on every page that has it, not one instance. Tokens only. */
+
+/* Vertical rhythm is not set here. Section seams, the opt-in seam hairline and the heading-to-content gap belong to the design system
+   (homepage/design-system/css/section.css, components/organisms/section-header.css); MediaText's copy alignment is MediaText's. */
+
+/* Stat rows on phones: two across, so an odd count left the last figure alone under a half-width rule, and the numerals dropped to the
+   h2 size of the headings around them. The last of an odd count spans the row, and the numerals hold the h1 size
+   (36px on a phone against 28px headings; the display size pushed "110,000+" out of its half column). */
+@media not all and (min-width:960px){
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats>.nu-stat--column:last-child:nth-child(odd){grid-column:1 / -1;padding-inline-start:0;border-inline-start:0}
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats .nu-numeral{font-size:var(--fs-h1)}
+}
+
+/* Stat numerals: one size per row count on every page (they ran 64, 93 and 97px on sibling pages). Up to three across take the
+   display size; four across take h1, since "4,000+" at display size is wider than a three-column stat. */
+@media (min-width:960px){
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats .nu-numeral{font-size:var(--fs-display)}
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats:has(>:nth-child(4)) .nu-numeral{font-size:var(--fs-h1)}
+}
+
+/* PointList beside its heading: the heading's cap height sits level with the first point's (they missed by 13-19px on co-op, the
+   overview and the content model), one --space-6 under the list's top rule. */
+@media (min-width:960px){
+  .nu-point-list>.nu-point-list__head{padding-top:var(--space-6)}
+  .nu-point-list>.nu-point-list__head>.nu-heading:first-child,.nu-point-list .nu-point-list__claim{text-box:trim-start cap alphabetic}
+}
+
+/* Figure captions: the person, then where, on two lines, wherever a caption names both (co-op and EL had three patterns). */
+.nu-figure__caption:has(>strong){display:grid;gap:var(--space-1)}
+.nu-figure__caption>strong{font-weight:var(--fw-medium)}
+
+/* Stat rows on the 12-column grid: the StatBand pads each column 24px in from its divider, which left numerals 15-19px off the
+   column lines the headings use (Zach 11-04, on EL's Strength in numbers). On every page the numerals start on the column line
+   and the divider moves into the gutter; the :nth-child(n) and .nu-stat-band:where(:not(.nu-stat-band--slate)) prefix outrank the headline variant's odd/first rules. */
+@media (min-width:960px){
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats{column-gap:var(--layout-gutter)}
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats>.nu-stat--column:nth-child(n){position:relative;padding-inline-start:0;border-inline-start:0}
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats>.nu-stat--column+.nu-stat--column::before{content:"";position:absolute;inset-block:0;
+    inset-inline-start:calc(var(--layout-gutter) / -2);border-inline-start:var(--border-hair) solid var(--line)}
+}
+
+/* Stat numerals never outgrow their column (impeccable critique 11-04: Boston's "110,000+" ran 45px into "400+" at display size).
+   Each stat column is a size container; a numeral takes the row's size up to what eight glyphs fit in its column (21cqi). */
+@media (min-width:960px){
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats>.nu-stat--column{container-type:inline-size}
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats .nu-numeral{font-size:min(var(--fs-display), 21cqi)}
+  .nu-stat-band:where(:not(.nu-stat-band--slate)) .nu-stat-band__stats:has(>:nth-child(4)) .nu-numeral{font-size:min(var(--fs-h1), 21cqi)}
+}
+
+/* Readable supporting text on desktop (impeccable critique 11-10: 14px grey was the commonest size beside ~100px display type).
+   Card excerpts, people's titles and notes take the body size from 960px; 14px stays for meta, eyebrows and small links. */
+@media (min-width:960px){
+  .nu-story-card__excerpt,.nu-person-card__title,.re-home .re-person__note{font-size:var(--fs-body);line-height:var(--lh-body)}
+}

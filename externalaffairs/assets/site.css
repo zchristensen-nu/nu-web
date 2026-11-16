@@ -1,0 +1,326 @@
+/* Staging sites: page glue only. Every component is the design system's (nu-ds.css); this file places them on the page,
+   with tokens for every value (design-system/tokens). */
+body{background:var(--surface);color:var(--on-surface)}
+.st-skip{position:absolute;top:var(--space-2);left:var(--space-2);z-index:var(--z-toast);translate:0 calc(-100% - var(--space-4))}
+.st-skip:focus{translate:0 0}
+.st-staging{padding:var(--space-2) var(--layout-edge);font-size:var(--fs-small);line-height:var(--lh-title);color:var(--on-surface-2);background:var(--surface-sunken);border-bottom:var(--border-hair) solid var(--line)}
+
+/* .st-top wraps the header, <main> and the footers (a pinned unit bar stays pinned to the end of the page: it never covers the
+   footers' last lines, which end at the window's foot); a hero is main's first child. The header floats over a hero (HeaderStack and GlobalHeader
+   --over-media sit on .st-top's top edge); elsewhere it sits on the page. */
+.st-top{position:relative}
+/* A unit's HeaderStack on the page: the university strip scrolls away and the unit's bar stays pinned, so the stack sticks one
+   strip-height above the window. Only a stack that has a unit bar pins (the review hub's is the strip alone and scrolls off). */
+.st-top>.nu-header-stack:not(.nu-header-stack--over-media):has(>.nu-header-stack__bar){position:sticky;top:calc(var(--space-7) * -1)}
+/* --sticky-offset is the pinned bar's height (0 everywhere else): whatever parks under the header reads it (ChapterRail, ContentsBar,
+   ContentsRail, ContentsMargin, and this file's own bars), and a #target or a focused control scrolls clear of the bar. */
+html:has(.st-top>.nu-header-stack:not(.nu-header-stack--over-media)>.nu-header-stack__bar),html:has(.st-top--travel>.nu-header-stack--over-media>.nu-header-stack__bar){--sticky-offset:var(--layout-header)}
+@media (max-width:959px){html:has(.st-top>.nu-header-stack:not(.nu-header-stack--over-media)>.nu-header-stack__bar),html:has(.st-top--travel>.nu-header-stack--over-media>.nu-header-stack__bar){--sticky-offset:var(--layout-header-compact)}}
+/* A unit bar over a hero (hero= on the page) travels too: the unit's navigation must not leave with the hero (critique r1, three
+   pages). site.js marks .st-top once it runs; the stack then sticks like the plain one (the strip scrolls away, the bar stays
+   pinned), laid over the hero by a negative margin of its own measured height. It is clear over the hero while the page is at the
+   top and takes the solid bar as soon as the strip has left (.is-stuck). Without script it is as before: absolute over the hero. */
+.st-top--travel>.nu-header-stack--over-media:has(>.nu-header-stack__bar){position:sticky;inset:auto;top:calc(var(--space-7) * -1);margin-bottom:calc(var(--st-header-h,0px) * -1);
+  transition:background-color var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
+.st-top--travel>.nu-header-stack--over-media.is-stuck{background:var(--surface);border-bottom-color:var(--line)}
+.st-top--travel>.nu-header-stack--over-media.is-stuck::before{content:none}
+/* The bar goes compact on its own container width, which a classic scrollbar makes 15px narrower than the window: from 960px the
+   pinned bar keeps the full height, so it always matches the offset above. */
+@media (min-width:960px){.st-top>.nu-header-stack:not(.nu-header-stack--over-media)>.nu-header-stack__bar,.st-top--travel>.nu-header-stack--over-media>.nu-header-stack__bar{min-height:var(--layout-header)}}
+/* Where a #target (or a focused control) lands, and where anything pinned parks: ONE number, --pin-top (a design-system token on
+   the root: the pinned unit bar's --sticky-offset plus every travelling bar on the page: SiblingNav, ChapterRail, ContentsBar,
+   plus --pin-extra, the slot for a bar the library does not know: .st-doc__disclosure below sets it). The root's scroll-padding-top is --pin-top plus one step of air; a pinned frame is
+   top:calc(var(--pin-top) + var(--space-5)). Nothing sets scroll-margin-top on targets: a second clearance doubles the first.
+   A bar that travels reads --sticky-offset (what is pinned ABOVE it), never --pin-top (which counts the bar itself). */
+html{scroll-padding-top:calc(var(--pin-top) + var(--space-5))}
+/* SectionNav --horizontal pins itself at the window's top edge (its own top:0); under a pinned bar it parks below the bar. */
+.st-top .nu-section-nav--horizontal{top:var(--sticky-offset)}
+/* Over film the copy clears the strip and the bar (48 + 72px). */
+.st-top--over .nu-hero-page__copy{padding-top:calc(var(--space-7) + var(--layout-header) + var(--space-8))}
+.st-hero .nu-heading--h1{max-width:22ch}
+
+/* Vertical rhythm is the design system's (css/section.css): every band is a .nu-section, which owns the seam above it, the layout
+   edge and the ground. .st-band is only a hook for this file's selectors; nothing here sets block padding on a section, and the
+   gap under a SectionHeader is the system's --head-gap. */
+.st-rows{display:grid;margin-top:var(--head-gap);border-top:var(--border-hair) solid var(--line)}
+.st-tabs{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5)}
+.st-tabs .nu-chip{text-decoration:none}
+
+/* Contact: the collage sits beside the page title from 960px; departments run full width below. */
+.st-contact__blocks{display:grid;gap:var(--space-7)}
+.st-contact-inline,.st-contact-stack{display:grid;gap:var(--space-3);margin-block:var(--space-4)}
+.st-hero-figure{margin:var(--space-6) 0 0;max-width:calc(var(--size-card-l) + var(--space-6))}
+.st-404{max-width:calc(var(--layout-prose) + var(--layout-edge) * 2)}
+.st-404 .nu-text--lead{margin-top:var(--space-4)}
+
+/* Explore Northeastern opens the MobileMenu sheet over the page; the unit menu is a small list under its button. */
+.st-sheet .nu-mobile-menu{position:fixed;inset:0;z-index:var(--z-modal)}
+.st-unit-menu{position:relative}
+.st-unit-menu__list{inset-inline:auto 0}
+html:has(.nu-mobile-menu:not([hidden])){overflow:hidden}
+
+/* Team/Leadership switch: links styled as Chips; the current page takes the Chip's selected state. */
+.st-tabs .nu-chip[aria-current]{color:var(--on-action);background:var(--action);border-color:var(--action)}
+/* 54 people: five across on wide screens (224px minimum card), two on phones. */
+.nu-card-grid--people .nu-card-grid__items{grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--size-card-s)),1fr))}
+@media (max-width:719px){.nu-card-grid--people .nu-card-grid__items{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.st-actions{display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-5);align-items:center;margin-top:var(--space-7)}
+.st-list ul{margin:0}
+/* Program cards and the finder. */
+.st-program-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--size-card-m)),1fr));gap:var(--space-7) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.st-program-grid>li{display:grid}
+.st-program-grid>li[hidden]{display:none}
+.st-finder__layout{display:grid;gap:var(--space-7)}
+.st-finder__results{display:grid;gap:var(--space-5);align-content:start;min-width:0}
+@media (min-width:960px){
+  .st-finder__layout{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
+  .st-finder__layout>.st-finder__drawer{grid-column:1 / span 3}
+  .st-finder__results{grid-column:5 / -1}
+  .st-finder .st-program-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Short claims as hairline rows on the reading edge. */
+.st-points{display:grid;margin:0;padding:0;list-style:none;border-top:var(--border-hair) solid var(--line)}
+.st-points>li{padding-block:var(--space-5);border-bottom:var(--border-hair) solid var(--line)}
+@media (min-width:960px){.st-points{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}.st-points>li{grid-column:5 / -1}}
+/* A cut-out figure over the hero ground (Experiential Learning home). */
+.st-hero__figure{position:absolute;right:0;bottom:0;z-index:0;height:100%;width:auto;max-width:70%;object-fit:contain;object-position:right bottom}
+/* An opening statement: the page's first paragraph set large across eight columns. */
+.st-statement{margin:0;max-width:30ch;font-size:var(--fs-h2);font-weight:var(--fw-heading);line-height:var(--lh-heading);letter-spacing:var(--tracking-heading);text-wrap:pretty}
+/* Components that set display (Notice, list items) must still honour hidden. */
+[hidden]{display:none!important}
+
+/* ---- Entrepreneurship patterns ---- */
+.st-statement--body{font-size:var(--fs-h3);font-weight:var(--fw-title);line-height:var(--lh-title);max-width:40ch}
+.st-hero-meta{margin-block:var(--space-2)}
+.st-values{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(var(--space-10) * 2)),1fr));gap:var(--space-7) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.st-values>li{display:grid;gap:var(--space-3);align-content:start;padding-top:var(--space-4);border-top:var(--border-rule) solid var(--line-strong)}
+.st-link-row--static{cursor:default}
+.st-accordion{display:grid;margin-top:var(--space-5)}
+.st-fine{color:var(--on-surface-muted);max-width:var(--layout-prose)}
+/* Founder cards keep their story on the card. */
+.st-founder .nu-person-card__body{display:grid;gap:var(--space-3);justify-items:start}
+/* Awards: white marks on Night. */
+.st-awards{background:var(--surface);color:var(--on-surface)}
+.st-awards__list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--size-card-m)),1fr));gap:var(--space-7) var(--layout-gutter);margin:var(--space-7) 0 0;padding:0;list-style:none}
+.st-award{display:grid;gap:var(--space-2);align-content:start;padding-top:var(--space-5);border-top:var(--border-hair) solid var(--line)}
+.st-award__mark{height:var(--space-8);width:auto;max-width:min(100%,var(--size-card-xs));object-fit:contain;object-position:left center;margin-bottom:var(--space-3)}
+/* Venture portfolio rows: mark, name and description, industry. */
+.st-ventures{display:grid;margin:0;padding:0;list-style:none;border-top:var(--border-hair) solid var(--line)}
+.st-ventures>li[hidden]{display:none}
+.st-venture{position:relative;display:grid;grid-template-columns:var(--space-9) minmax(0,1fr);gap:var(--space-3) var(--space-5);align-items:start;padding-block:var(--space-5);border-bottom:var(--border-hair) solid var(--line)}
+.st-venture__mark{display:grid;place-items:center;width:var(--space-9);aspect-ratio:1;background:var(--surface-raised);border:var(--border-hair) solid var(--line)}
+.st-venture__mark img{max-width:80%;max-height:80%;width:auto;height:auto;object-fit:contain}
+.st-venture__initial{font-size:var(--fs-h3);font-weight:var(--fw-title);color:var(--on-surface-muted)}
+.st-venture__body{display:grid;gap:var(--space-2);min-width:0}
+.st-venture__body .nu-text{color:var(--on-surface-2);max-width:var(--layout-prose)}
+.st-venture__meta{grid-column:2;display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.st-venture__link{color:inherit;text-decoration:underline;text-decoration-thickness:var(--border-hair);text-underline-offset:.16em;text-decoration-color:transparent}
+.st-venture__link::after{content:"";position:absolute;inset:0}
+.st-venture:hover .st-venture__link{text-decoration-color:currentColor}
+@media (min-width:960px){
+  .st-venture{grid-template-columns:var(--space-9) minmax(0,1fr) calc(var(--space-10) * 1.5)}
+  .st-venture__meta{grid-column:3;justify-content:flex-end}
+}
+/* Two features side by side (Launch Week: 300 Connect, hackathon). */
+.st-features{display:grid;gap:var(--space-9)}
+.st-feature{display:grid;gap:var(--space-4);align-content:start;justify-items:start}
+.st-feature .nu-text{max-width:var(--layout-prose)}
+.st-tags{display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0;padding:0;list-style:none}
+.st-hack{width:100%;margin:var(--space-3) 0}
+@media (min-width:960px){.st-features{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--layout-gutter)}}
+/* Prize callout beside its facts. */
+.st-prize-row{display:grid;gap:var(--space-7)}
+.st-prize{display:grid;gap:var(--space-2);align-content:start}
+@media (min-width:960px){.st-prize-row{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}.st-prize{grid-column:1 / span 4}.st-prize-row>.nu-key-value{grid-column:5 / -1}}
+/* Label/value rows on the reading edge. */
+.st-kv-rows{margin-top:var(--space-7)}
+@media (min-width:960px){.st-kv-rows{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}.st-kv-rows>.nu-key-value__row{grid-column:5 / -1}}
+/* Long rules and guides: Prose on the reading edge. */
+@media (min-width:960px){.st-policy{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}.st-policy>.nu-prose{grid-column:5 / -1}}
+.st-clause{padding-inline-start:var(--space-5)}
+/* Event archive. */
+.st-events{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--size-card-l)),1fr));gap:var(--space-6) var(--layout-gutter);margin:0;padding:0;list-style:none}
+
+/* Bullets under a section heading, on the reading edge. */
+.st-bullets{display:grid;gap:var(--space-3);margin:0;padding-inline-start:var(--space-5);max-width:var(--layout-prose);color:var(--on-surface-2)}
+/* Film band: full-bleed video on Night, copy over a scrim, a pause control (autoplaying video must pause). */
+.st-film{position:relative;display:grid;align-items:end;min-height:min(80vh,var(--size-band-xl));padding:var(--space-9) var(--layout-edge);overflow:hidden;color:var(--on-surface);background:var(--surface);isolation:isolate}
+.st-film__video{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover}
+.st-film>.nu-scrim{z-index:-1}
+.st-film__copy{display:grid;gap:var(--space-3);max-width:18ch}
+.st-film__control{position:absolute;right:var(--layout-edge);bottom:var(--space-7)}
+
+/* Finder: results bar with the count (and, below 960px, the Filters button); the panel becomes a full-screen drawer. */
+.st-finder__bar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);min-height:var(--layout-target)}
+.st-finder__foot{display:none}
+html.st-locked{overflow:hidden}
+@media (min-width:960px){.st-finder__open{display:none}}
+@media (max-width:959px){
+  .st-finder__drawer{display:none}
+  .st-finder__drawer[data-open]{display:block;position:fixed;inset:0;z-index:var(--z-modal);overflow-y:auto;padding:var(--space-6) var(--layout-edge) 0;background:var(--surface-raised)}
+  .st-finder__drawer .nu-filter-panel--sidebar{position:static;max-height:none;overflow:visible;padding:0}
+  .st-finder__drawer .st-finder__foot{display:flex;bottom:0;margin-inline:calc(var(--layout-edge) * -1);margin-bottom:0}
+}
+/* Long documents: the phone disclosure sits under the hero, pinned while reading. */
+.st-doc__disclosure{position:sticky;top:var(--sticky-offset);z-index:var(--z-sticky);margin:var(--space-5) var(--layout-edge) 0}
+/* A jump lands clear of the pinned disclosure (it shows below 960px; from there the contents are a rail beside the text). */
+@media (max-width:959px){html:has(.st-doc__disclosure){--pin-extra:var(--space-8)}}
+/* Campaign opener: the campaign's own lockup over the headline, and its headline figure inline. */
+.st-campaign-hero{padding:var(--space-8) var(--layout-edge) 0;background:var(--surface);color:var(--on-surface)}
+.st-campaign-mark{display:block;width:auto;height:var(--space-9);max-width:100%;object-fit:contain;object-position:left center}
+.st-campaign-figure{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-2) var(--space-3);margin:0}
+.st-campaign-figure .nu-numeral{display:inline}
+
+/* --- ea (External Affairs) --- */
+/* Offices on Our expertise: one OfficeProfile after another, a band's rhythm between them. */
+.ea-offices{display:grid;gap:var(--section-gap)}
+/* Government relations: the office's own line and inbox under the group heading. */
+.ea-reach{display:grid;gap:var(--space-1);justify-items:start;margin-top:var(--space-3)}
+/* Team / Leadership SiblingNav sits on the content edge under the hero title, as the title's rule does. */
+.ea-sibling{margin-inline:var(--layout-edge)}
+/* Team by office: CardGrid --grouped asks for six compact cards beside the heading from a 1200px grid, but the content width tops out at
+   1184px (layout-max 1280 less two 48px edges), so it never gets there. Six from 1120px here; reported to the system. */
+@container (min-width:1120px){.ea-team .nu-card-grid--grouped .nu-card-grid__items:has(> li > .nu-person-card--compact){grid-template-columns:repeat(5,minmax(0,1fr))}}
+/* A ContactItem in a taller grid row (the main office's address beside its phone) stretched its own rows, dropping the value away
+   from its label. Reported to the system; held to the top here. */
+.st-contact .nu-contact-item,.ea-media .nu-contact-item{align-content:start}
+/* Emails: no mid-word breaks (avoids an orphaned "u"); break only at the <wbr> after @ if the line is too narrow */
+.st-contact .nu-contact-item__value,.st-contact .nu-contact-item__value .nu-link,.ea-media .nu-contact-item__value,.ea-media .nu-contact-item__value .nu-link{overflow-wrap:break-word}
+/* Leader names link to their bios (ea-13). FeaturedPerson has no linked-name style, so the underline shows on hover only, as StoryRow's titles do. */
+.ea-leaders .nu-featured-person__name a{text-decoration-color:transparent;transition:text-decoration-color var(--dur-fast) var(--ease-out)}
+.ea-leaders .nu-featured-person__name a:hover{text-decoration-color:currentColor}
+/* --- end ea --- */
+
+/* --- el (Experiential Learning) --- */
+/* Page glue for experientiallearning-staging only; every class here is el- prefixed or scoped to a system template class. */
+/* SiblingNav (el-07): the pathway switcher sits on the layout edge directly under the hero. */
+.el-sibling{padding:0 var(--layout-edge)}
+/* Opportunity groups (el-11), the CampusMap index pattern: a group label on a strong rule in columns 1–4 with its count, its LinkRows
+   from column 5 as subgrids, so a row's title holds columns 5–7 and its sentence starts on column 8 (three edges, whole columns apart). */
+.el-groups{display:grid;gap:var(--space-7);min-width:0}
+.el-group{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-4) var(--layout-gutter);min-width:0}
+.el-group__head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-4);padding-top:var(--space-4);border-top:var(--border-rule) solid var(--on-surface)}
+.el-group__count{margin:0;font-size:var(--fs-small);line-height:var(--lh-title);color:var(--on-surface-muted);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+.el-group__rows,.el-rows{display:grid;min-width:0}
+@media (min-width:960px){
+  .el-group{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));align-items:start}
+  .el-group__head{grid-column:1 / span 4;display:grid;justify-content:start;gap:var(--space-1)}
+  .el-group__rows{grid-column:5 / -1;grid-template-columns:subgrid}
+  .el-group__rows .nu-link-row{grid-column:1 / -1;grid-template-columns:subgrid;column-gap:var(--layout-gutter)}
+  .el-group__rows .nu-link-row__title{grid-column:1 / span 3}
+  .el-group__rows .nu-link-row__body{grid-column:4 / -1}
+  .el-group__rows .nu-link-row:first-child{border-top-color:transparent}
+  /* Inside a group a row's body is five columns: the cue stays under the text (LinkRow's row-end cue needs the full twelve). */
+  .el-group__rows .nu-link-row__body>*{grid-column:1 / -1}
+  .el-group__rows .nu-link-row__body>.nu-link-row__cue{grid-row:auto;justify-self:start}
+}
+/* Four captioned photographs (Extracurricular) sit four across instead of leaving an orphan under three. */
+@media (min-width:960px){.nu-unit-home__claims-grid.el-claims--4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* Home opener (el-05): the live cut-out student is a full-frame layer over the texture, so it crops with the photograph's own focal point. */
+.nu-hero-page--display .st-hero__figure{inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:var(--hero-page-focus-phone)}
+@media (min-width:960px){.nu-hero-page--display .st-hero__figure{object-position:var(--hero-page-focus)}}
+/* Finder on phones (el-16): the count and the Filters button stay in reach while the rows scroll. */
+@media (max-width:959px){.nu-section-hub .st-finder__bar{position:sticky;top:var(--sticky-offset);z-index:var(--z-sticky);margin-inline:calc(var(--layout-edge) * -1);padding:var(--space-2) var(--layout-edge);background:var(--surface);border-bottom:var(--border-hair) solid var(--line)}}
+/* --- end el --- */
+
+/* --- ge (Entrepreneurship) --- */
+/* Home HeroFilm: three November posters fill the lineup's columns (the system's lineup is four across). */
+/* The pathways row follows the Statement inside the same band. */
+.ge-paths{margin-top:var(--space-8)}
+/* Home network band (Night): the campus dot map under the section header, the StatBand under the map, Recognition after a full chapter gap. */
+.ge-network__map{margin-top:var(--space-7)}
+.ge-network .nu-stat-band:where(:not(.nu-stat-band--slate)){margin-top:var(--space-6)}
+.ge-network__awards{margin-top:var(--space-9)}
+/* Next Up SiblingNav under the opener: the row sits on the layout edge with the page's hairline under it. */
+.ge-sibling{padding:0 var(--layout-edge);background:var(--surface);color:var(--on-surface);border-bottom:var(--border-hair) solid var(--line)}
+/* Steps in a closed campaign: the stages every entrant has finished step back; the current one keeps full ink (ge-10). */
+.ge-steps--closed .nu-step:has(~ .nu-step[aria-current]) .nu-heading{color:var(--on-surface-2)}
+/* Official rules: clause numbers hang in the gutter so every heading starts on the reading edge (ge-09). */
+.nu-prose h2:has(>.ge-clause-num){position:relative}
+.ge-clause-num{position:absolute;right:100%;padding-inline-end:var(--space-3);font-variant-numeric:tabular-nums lining-nums;color:var(--on-surface-muted)}
+@media not all and (min-width:960px){.ge-clause-num{position:static;padding:0 var(--space-2) 0 0}}
+/* Launch Week chapters: 300 Connect and the hackathon each get a full-width band; the co-brand mark sits in the hackathon's head. */
+.ge-chapter .nu-section-header__body>*+*{margin-top:var(--space-4)}
+.ge-chapter .nu-section-header__body>.nu-heading{margin-top:var(--space-6)}
+.ge-cobrand{justify-self:start;width:var(--size-card-m);min-height:var(--space-9);margin:var(--space-2) 0}
+.ge-cobrand .nu-logo-tile__mark{max-width:100%;max-height:var(--space-8)}
+.ge-chapter .nu-timeline__head>.nu-button{justify-self:start}
+/* --- end ge --- */
+
+/* A compound in a heading stays whole (kit.keep_hyphens); on the narrowest phones it may break at its hyphen rather than push the page wide. */
+.st-nowrap{white-space:nowrap}
+@media (max-width:359px){.st-nowrap{white-space:normal}}
+
+/* For media: phone column hugs its number so the email fits on one line */
+@media (min-width:720px){.ea-media .nu-contact-block__items{grid-template-columns:auto minmax(0,1fr);column-gap:var(--space-8)}}
+/* NGN wordmark in place of the text link */
+.st-ngn-link{display:inline-flex;color:var(--on-surface);padding-block:var(--space-1)}
+.st-ngn-wordmark{display:block;height:1.125rem;width:auto}
+.st-ngn-link:hover .st-ngn-wordmark polygon{translate:2px -2px}
+.st-ngn-wordmark polygon{transition:translate var(--dur-base) var(--ease-out)}
+/* Proof points carry a photo */
+.st-proof-media{display:block;aspect-ratio:var(--ratio-photo);overflow:hidden;margin-bottom:var(--space-4);background:var(--surface-sunken)}
+.st-proof-media .nu-image{display:block;width:100%;transition:scale var(--dur-slow) var(--ease-out)}
+.nu-proof-point:hover .st-proof-media .nu-image{scale:1.03}
+
+.st-rows .nu-link-row__media .nu-image[src*="Policy-Brief"]{object-position:top center}
+/* Carousels: "In the news" (press) and NGN most-read. Full container width, a scroll-snap row with previous/next buttons. */
+.st-reel{display:grid;gap:var(--space-6);min-width:0}
+.st-reel__head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-5);padding-top:var(--space-4);border-top:var(--border-rule) solid var(--on-surface)}
+.st-reel__head .nu-heading{margin:0}
+.st-reel__brand{margin:0;line-height:1}
+.st-reel__brand .st-ngn-wordmark{height:clamp(1.125rem,.9rem + .6vw,1.5rem)}
+.st-reel__controls{display:flex;flex:none;gap:var(--space-2)}
+.st-reel__controls .nu-icon-button[disabled]{opacity:.35;pointer-events:none}
+.st-reel__track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * var(--layout-gutter)) / 3.25);gap:var(--layout-gutter);margin:0 0 calc(var(--space-4) * -1);padding:0 0 var(--space-4);list-style:none;  /* the scrollbar's gutter sits inside the seam below, not on top of it */
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent}
+.st-reel--ngn .st-reel__track{grid-auto-columns:calc((100% - 2 * var(--layout-gutter)) / 3)}
+.st-reel__track:focus-visible{outline:var(--border-focus) solid var(--focus);outline-offset:var(--space-1)}
+.st-reel__item{display:grid;min-width:0;scroll-snap-align:start}
+.st-story{display:grid;align-content:start;gap:var(--space-3);border-top:0;padding-top:0}
+.st-story .st-proof-media{margin-bottom:var(--space-2)}
+.st-story__title{margin:0;text-wrap:pretty}
+.st-story:hover .st-story__title{color:var(--link-hover)}
+.st-reel__kind{display:block;font-size:var(--fs-small);font-weight:var(--fw-medium);line-height:var(--lh-title);color:var(--on-surface-muted)}
+.st-proof-media--type{display:flex;align-items:flex-end;padding:var(--space-5);border:var(--border-hair) solid var(--line);background:var(--surface-sunken)}
+.st-proof-media--type>span{font-size:var(--fs-h2);font-weight:var(--fw-heading);line-height:var(--lh-heading);letter-spacing:var(--tracking-heading);color:var(--on-surface);text-wrap:balance}
+.st-proof-media--ngn{display:flex;align-items:flex-end;padding:var(--space-5);background:var(--surface);color:var(--on-surface)}
+.st-reel__ngn{display:block;height:var(--space-6);width:auto}
+@media (max-width:959px){.st-reel__track,.st-reel--ngn .st-reel__track{grid-auto-columns:calc((100% - var(--layout-gutter)) / 2.15)}}
+@media (max-width:719px){.st-reel__track,.st-reel--ngn .st-reel__track{grid-auto-columns:82%}}
+@media (prefers-reduced-motion:reduce){.st-reel__track{scroll-behavior:auto}}
+/* Expertise: link from each office to its team section */
+.st-office-team{margin-top:var(--space-2)}
+/* Team page: group heading above, portraits across the full container: 5 per row on desktop, 4 on tablets. */
+@media (min-width:720px){
+  .ea-team .nu-card-grid__group-head{grid-column:1 / -1;position:static}
+  .ea-team .nu-card-grid__group>.nu-card-grid__items{grid-column:1 / -1}
+  .ea-team .nu-card-grid--grouped .nu-card-grid__items:has(> li > .nu-person-card--compact),
+  .ea-team .nu-card-grid__items:where(.nu-card-grid:not(.nu-card-grid--uneven) *):has(> li > .nu-person-card--compact){grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (min-width:960px){
+  .ea-team .nu-card-grid--grouped .nu-card-grid__items:has(> li > .nu-person-card--compact),
+  .ea-team .nu-card-grid__items:where(.nu-card-grid:not(.nu-card-grid--uneven) *):has(> li > .nu-person-card--compact){grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+
+.ea-media .nu-contact-block__label .nu-arrow-link{margin-top:var(--space-3);justify-self:start}
+/* NGN text cards: no placeholder art. A ruled card with section, headline and byline, the byline pinned to the bottom so rows line up. */
+.st-story--text{grid-template-rows:auto 1fr auto;min-height:var(--size-card-xs);padding:var(--space-5);gap:var(--space-4);border:var(--border-hair) solid var(--line);border-top:var(--border-rule) solid var(--accent);background:var(--surface-raised,var(--surface))}
+.st-story--text .st-story__title{align-self:start}
+.st-story--text:hover{border-color:var(--line-strong);border-top-color:var(--accent)}
+/* Homepage "What we do": three tall photo cards (layout option A). */
+.st-office-cards{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-7) var(--layout-gutter);margin:0;padding:0;list-style:none}
+@media (min-width:720px){.st-office-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.st-office-cards>li{display:grid;min-width:0}
+.st-office-card{display:grid;align-content:start;gap:var(--space-4);color:inherit;text-decoration:none}
+.st-office-card__media{display:block;aspect-ratio:var(--ratio-portrait);overflow:hidden;background:var(--surface-sunken)}
+.st-office-card__media .nu-image{display:block;width:100%;height:100%;object-fit:cover;transition:scale var(--dur-slow) var(--ease-out)}
+.st-office-card:hover .st-office-card__media .nu-image{scale:1.03}
+.st-office-card .nu-heading,.st-office-card .nu-text{margin:0}
+.st-office-card .nu-text{color:var(--on-surface-2)}
+.st-office-card:hover .nu-heading{color:var(--link-hover)}
+.st-office-card:hover .st-office-card__cue .nu-icon{translate:var(--space-1) 0}
+.st-office-card:focus-visible{outline:var(--border-focus) solid var(--focus);outline-offset:var(--space-2)}
+@media (max-width:719px){.st-office-card__media{aspect-ratio:var(--ratio-photo)}}
+@media (prefers-reduced-motion:reduce){.st-office-card__media .nu-image{transition:none}}

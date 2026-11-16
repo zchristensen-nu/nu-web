@@ -1,0 +1,62 @@
+/* experientiallearning home (el_home, rebuilt from the live page 2026-11-02): page glue only, scoped under .el-home / .el-hero, because
+   build.py links this file on every page. Tokens only. */
+
+/* Hero: the live display word ("Expe" + "rience") is one word again; "the world your way" is its second line. */
+.el-hero .el-hero__line{display:block}
+
+/* The definition: the question on columns 1–6, the definition and its quick links on 7–12 (SectionHeader's split, B). */
+.el-home .el-define__grid{display:grid;gap:var(--space-6)}
+.el-home .el-define__body{display:grid;gap:var(--space-7);min-width:0}
+/* The definition sits beside its question as the answer, not a second heading: h3 size, text weight (Zach 11-13: "shouldn't be the
+   same weight as the heading next to it"). */
+.el-home .el-define__line{max-width:30ch;font-weight:var(--fw-text)}
+/* The six cards start one heading gap below the quick links (they sat flush on the links' last row, 11-13). */
+.el-home .el-define+.el-cards,.el-home .el-define .el-cards{margin-top:var(--head-gap)}
+.el-home .el-define__links{display:grid;grid-template-columns:minmax(0,1fr);justify-items:start;gap:var(--space-4) var(--layout-gutter);margin:0;padding:var(--space-5) 0 0;list-style:none;
+  border-top:var(--border-hair) solid var(--line)}
+@media (min-width:960px){
+  /* Cap tops on one line, as in "What is co-op?" (baseline alignment left the two tops 12px apart at different sizes). */
+  .el-home .el-define__grid{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}
+  .el-home .el-define__grid>.nu-heading,.el-home .el-define__line{text-box:trim-start cap alphabetic}
+  .el-home .el-define__grid>.nu-heading{grid-column:1 / span 6}
+  .el-home .el-define__body{grid-column:7 / -1}
+  .el-home .el-define__line{max-width:none}
+  .el-home .el-define__links{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* Six differentiators: each card is one link (photo 4:5, title, its meta, a sentence). A swipe row on phones, 2 then 3 across. */
+.el-home .el-cards{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:var(--space-5);margin:0 calc(var(--layout-edge) * -1);
+  padding:0 var(--layout-edge) var(--space-2);list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--layout-edge);scrollbar-width:none}
+.el-home .el-cards>li{display:grid;min-width:0;scroll-snap-align:start}
+.el-home .el-card{display:grid;gap:var(--space-2);align-content:start;color:inherit;text-decoration:none}
+.el-home .el-card__media{display:block;overflow:hidden;margin-bottom:var(--space-3);background:var(--surface-sunken)}
+.el-home .el-card .nu-text--meta{color:var(--on-surface-muted)}
+.el-home .el-card__text{max-width:38ch;color:var(--on-surface-2)}
+@media (min-width:720px){
+  .el-home .el-cards{grid-auto-flow:row;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-8) var(--layout-gutter);margin-inline:0;padding:0;overflow:visible}
+}
+/* From 960px the six run as a rail that peeks past the content edge (Zach 11-04, after adobe.com; the expanding row squeezed six
+   cards to 150px): three at four columns each in view, the fourth showing in the margin, scrolled sideways. The rail runs to the
+   window's right edge; its cards stay on columns 1, 5 and 9. */
+@media (min-width:960px){
+  .el-home .el-cards{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:calc((100% - 2 * var(--layout-gutter)) / 3);
+    column-gap:var(--layout-gutter);margin-inline-end:calc((100cqw - 100vw) / 2);margin-bottom:calc(var(--space-4) * -1);padding-inline-end:calc((100vw - 100cqw) / 2);padding-bottom:var(--space-4);
+    overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+  .el-home .el-cards>li{scroll-snap-align:start}
+  .el-home .el-cards:focus-visible{outline:var(--border-focus) solid var(--focus);outline-offset:var(--space-1)}
+}
+
+/* Story pair and the partners' pill. */
+.el-home .el-stories .nu-story-card__body{gap:var(--space-3)}
+.el-home .el-band .nu-section-header__body>.nu-button{justify-self:start}
+.el-home .el-stories .nu-story-card{grid-template-rows:auto 1fr}
+.el-home .el-stories .nu-story-card__body{grid-template-rows:auto 1fr}
+.el-home .el-stories .nu-story-card__body>.nu-arrow-link{align-self:end;justify-self:start}
+
+/* Story pair on the 12-column gutter, so the right story starts on column 7 with the partners' lead below it. */
+@container (min-width:720px){.el-home .el-stories .nu-card-grid__items:where(.nu-card-grid:not(.nu-card-grid--uneven) *){column-gap:var(--layout-gutter)}}
+
+
+/* Partners: the heading takes the left half and the lead the right half (SectionHeader --split-6 in the markup), so the lead isn't
+   packed against the heading with the right third empty (Zach 11-02). */
+@media (min-width:960px){.el-home .el-partners-band .nu-section-header .nu-text--lead{max-width:none}}

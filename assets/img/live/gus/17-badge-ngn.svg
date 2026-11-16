@@ -1,0 +1,17 @@
+<svg class="ngn-lettermark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 276.7 74.13">
+    <defs>
+        <style>
+            .ngn-lettermark__shapes {
+            fill: var(--wp--custom--color--emphasize, #000)
+            }
+
+            .ngn-lettermark__shapes-arrow {
+            fill: var(--wp--custom--color--accent, #cf2b28)
+            }
+        </style>
+    </defs>
+    <polygon class="ngn-lettermark__shapes ngn-lettermark__shapes-arrow" points="240.67 1.01 240.67 8.21 264.23 8.21 243.23 29.21 248.32 34.31 269.5 13.12 269.5 37.04 276.7 37.04 276.7 1.01 240.67 1.01"></polygon>
+    <path class="ngn-lettermark__shapes ngn-lettermark__shapes-n-start" d="M0,73.07V1.06H12.99L52.81,50.48V1.06h14.32V73.07h-13.2L14.32,24.18v48.89H0Z"></path>
+    <path class="ngn-lettermark__shapes ngn-lettermark__shapes-g" d="M78.46,37.06C78.46,16.01,94.36,0,115.41,0c12.46,0,23.97,5.94,31.55,16.91l-11.29,8.06c-5.62-8.48-12.94-11.72-20.26-11.72-13.1,0-22.27,9.86-22.27,23.81s9.54,23.81,22.64,23.81c11.98,0,18.72-7.05,20.36-14.69h-21.79v-12.35h36.27c.21,1.86,.26,3.98,.26,5.78,0,18.51-13.04,34.52-35.1,34.52s-37.33-16.01-37.33-37.06Z"></path>
+    <path class="ngn-lettermark__shapes ngn-lettermark__shapes-n-end" d="M162.22,73.07V1.06h12.99l39.82,49.42V1.06h14.32V73.07h-13.2l-39.61-48.89v48.89h-14.32Z"></path>
+</svg>

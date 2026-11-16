@@ -1,0 +1,30 @@
+/* --- www_academics (wwa-): page glue for northeastern.edu/academics/. Shared wwa- rules (chapters, campus row, pair) are in
+   www_about.css. Tokens only. --- */
+
+/* Colleges and schools: ten square photographs, five across from 1200px (two rows of five), four at 960, two on phones. Each card is
+   one link named by the college; the title is h4-size so the long names ("College of Social Sciences and Humanities") wrap calmly. */
+.wwa-colleges__grid{display:grid;grid-template-columns:minmax(0,1fr);margin:0;padding:0;list-style:none;border-bottom:var(--border-hair) solid var(--line)}
+/* Colleges and schools as a typographic index (impeccable critique 11-04: the page's signature section, not another row of
+   thumbnails). From 960px the ten names run as large light rows on columns 1-8; the photograph of the row under the pointer or focus
+   shows on columns 9-12, held at the list's top (the first college's when none is chosen). Phones keep the thumbnail rows. */
+.wwa-colleges__grid>li{display:grid;min-width:0;border-top:var(--border-hair) solid var(--line);padding-block:var(--space-4)}
+.wwa-colleges__grid .nu-story-card{grid-template-columns:var(--space-9) minmax(0,1fr);column-gap:var(--space-4);align-items:center}
+.wwa-colleges__grid .nu-story-card__title{font-size:var(--fs-lead);font-weight:var(--fw-title);line-height:var(--lh-title);max-width:none}
+@media (min-width:960px){
+  .wwa-colleges__grid{position:relative;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
+  .wwa-colleges__grid{border-bottom:0}
+  .wwa-colleges__grid>li{grid-column:1 / span 8;padding-block:var(--space-4)}
+  .wwa-colleges__grid>li:last-child{border-bottom:var(--border-hair) solid var(--line)}  /* the rules end with the names, on column 8 */
+  .wwa-colleges__grid>li,.wwa-colleges__grid .nu-story-card{position:static}  /* the photograph anchors to the list, not its row */
+  .wwa-colleges__grid .nu-story-card{display:block}
+  .wwa-colleges__grid .nu-story-card__title{position:relative}  /* each row's link covers its name */
+  .wwa-colleges__grid .nu-story-card__title{font-size:var(--fs-h2);font-weight:var(--fw-heading);line-height:var(--lh-heading);transition:color var(--dur-fast) var(--ease-out)}
+  .wwa-colleges__grid .nu-story-card__media{position:absolute;top:0;right:0;width:calc((100% - 11 * var(--layout-gutter)) * 4 / 12 + 3 * var(--layout-gutter));
+    opacity:0;pointer-events:none;transition:opacity var(--dur-base) var(--ease-out)}
+  .wwa-colleges__grid .nu-story-card__media .nu-image{aspect-ratio:4/5}
+  .wwa-colleges__grid>li:is(:hover,:focus-within) .nu-story-card__media,
+  .wwa-colleges__grid:not(:hover):not(:focus-within)>li:first-child .nu-story-card__media{opacity:1}
+  /* the chosen name keeps the reading edge (a 12px nudge read as jitter); the underline and the photograph mark it */
+}
+@media (prefers-reduced-motion:reduce){.wwa-colleges__grid .nu-story-card__title,.wwa-colleges__grid .nu-story-card__media{transition:none}}
+

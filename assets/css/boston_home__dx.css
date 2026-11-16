@@ -1,0 +1,27 @@
+/* Boston campus home, the three takes (boston_home__a / __b / __c): page glue, scoped under .pg-boston-dx (a class the page puts
+   on its own sections), tokens only, no motion. Each rule stands in for something a pattern cannot yet take as an argument; the
+   requests are in build/reports/dx-library-requests/boston_home.md, and a rule goes when its request lands. */
+
+/* 1. The Statement molecule sets its sentence at h1 size in the display weight; the founding sentence is the section's h2 and
+   runs 103 characters, so at h1 size it takes four lines. At h2 size it holds three across ten columns (A and C; request 1,
+   declined in library round 1 as a FigureRow slot, still open for the molecule). */
+.pg-boston-dx .nu-statement__line{font-size:var(--fs-h2);font-weight:var(--fw-heading)}
+
+/* 2. B's UnevenGrid with four short entries: the science complex square, Snell Library and Marino at 3:2, so the four stand
+   in a little over one screen (1,403 -> about 1,200px at 1440; review r2 B-1). The lead keeps the largest frame, so the size
+   hierarchy holds (671 / 363 / 363 / 363 wide, three shapes). From 960px only; phones keep the pattern's rows. Request 13. */
+@media (min-width:960px){
+  .pg-boston-dx.nu-card-grid--uneven .nu-card-grid__item:nth-child(2) .nu-image{aspect-ratio:var(--ratio-square)}
+  .pg-boston-dx.nu-card-grid--uneven .nu-card-grid__item:is(:nth-child(3),:nth-child(4)) .nu-image{aspect-ratio:var(--ratio-photo)}
+}
+
+/* 3. NameWall, list form from 960px: each name a 44px target (it measured 34px; review r2 A-2). Request 14. */
+@media (min-width:960px){.pg-boston-dx.nu-name-wall .nu-name-wall__name{min-height:var(--layout-target);align-items:center}}
+
+/* 4. C's FigureSlate with a 103-character title and a lead: the slate sets the title on four columns beside the lead (seven
+   lines at 1440). Here the title takes nine columns and the lead stands under it from column 5, the figures' first edge
+   after the margin (review r2 C-1 asked for this pattern). From 960px. Request 15. */
+@media (min-width:960px){
+  .pg-boston-dx.nu-stat-band--slate:has(.nu-stat-band__items) .nu-stat-band__head>.nu-stat-band__title{grid-column:1 / span 9;max-width:none}
+  .pg-boston-dx.nu-stat-band--slate:has(.nu-stat-band__items) .nu-stat-band__head>.nu-text--lead{grid-column:5 / -1;grid-row:2;margin-top:var(--space-5)}
+}

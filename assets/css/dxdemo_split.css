@@ -1,0 +1,18 @@
+/* docs/dx/split/: the heading + paragraph variations (build/pages/dxdemo_split.py). Review page glue, scoped under .dxs-*; tokens only.
+   B, D and F are the system's own SectionHeader --split, --offset and --pair (Zach 11-13); only the retired A is drawn here. */
+.dxs-nav{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);margin:0;padding:0;list-style:none}
+.dxs-tag{display:grid;gap:var(--space-2);padding:var(--space-7) var(--layout-edge) var(--space-5);border-top:var(--border-rule) solid var(--line-strong);background:var(--surface)}
+.dxs-tag .nu-text{max-width:var(--measure-lead);color:var(--on-surface-2)}
+.dxs-line{font-weight:var(--fw-text);max-width:30ch}
+
+/* A, retired: heading on 1–4, text from 5 at its measure (the old --split), kept as the record. */
+@media (min-width:960px){
+  .dxs-a{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);align-items:start}
+  .dxs-a>.nu-heading,.dxs-a .nu-section-header__body>:first-child{text-box:trim-start cap alphabetic}
+  .dxs-a>.nu-heading{grid-column:1 / span 4;grid-row:1;max-width:none}
+  .dxs-a .nu-section-header__body{grid-column:5 / -1;grid-row:1}
+}
+/* The answer line (an h3-size paragraph) fills its column in the splits, as the lead does. */
+@media (min-width:960px){
+  :is(.nu-section-header--split,.nu-section-header--offset,.nu-section-header__pair) .dxs-line{max-width:none}
+}

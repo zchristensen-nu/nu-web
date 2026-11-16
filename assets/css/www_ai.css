@@ -1,0 +1,86 @@
+/* --- www_ai: Human-centered AI (ai-), page glue only. --- */
+
+/* Hero: the film's pause control on the content edge's opposite side, level with the foot of the copy. */
+.ai-hero{min-height:var(--size-band-xl)}
+.ai-hero__control{position:absolute;z-index:1;right:var(--layout-edge);bottom:var(--space-8)}
+@media not all and (min-width:960px){.ai-hero{min-height:var(--size-band-l)}.ai-hero__control{bottom:var(--space-6)}}
+
+/* The opening paragraph on the reading edge (column 7). */
+@media (min-width:960px){
+  .ai-intro{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
+  .ai-intro__text{grid-column:7 / -1}
+}
+
+/* Photo cards: three across from 960px, two from 720px. Cues share one line across a row. */
+.ai-cards{display:grid;gap:var(--space-7) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.ai-cards>li{display:grid;min-width:0}
+.ai-card{grid-template-rows:auto 1fr}
+.ai-card .nu-story-card__body{grid-template-rows:auto auto 1fr auto;gap:var(--space-3)}
+.ai-card .nu-text--meta{margin-bottom:calc(var(--space-2) * -1)}  /* the eyebrow sits above the title (Zach 11-04), held close to it */
+.ai-card__text{color:var(--on-surface-2);max-width:42ch}
+.ai-cue{min-height:0;margin-top:var(--space-1)}
+.nu-story-card:hover .ai-cue{color:var(--link-hover)}
+@media (min-width:720px){.ai-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){.ai-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Research areas: six names as a ruled index on the reading edge (column 7), not a grid of cells (Zach 11-03: fewer 3-column rows). */
+.ai-areas{display:grid;margin:0;padding:0;list-style:none;border-top:var(--border-hair) solid var(--line)}
+.ai-areas__item{padding:var(--space-4) 0;border-bottom:var(--border-hair) solid var(--line)}
+@media (min-width:960px){
+  .ai-areas{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter);border-top:0}
+  .ai-areas__item{grid-column:7 / -1}
+  .ai-areas__item:first-child{border-top:var(--border-hair) solid var(--line)}
+}
+
+
+/* People: portrait, name, title as meta under it, the bio. Three across from 960px. */
+.ai-people__list{display:grid;gap:var(--space-8) var(--layout-gutter);margin:0;padding:0;list-style:none}
+.ai-person{display:grid;gap:var(--space-3);align-content:start;min-width:0}
+.ai-person>.nu-image{margin-bottom:var(--space-2)}
+.ai-person>.nu-text--meta{margin-top:calc(var(--space-2) * -1)}
+.ai-person__bio{color:var(--on-surface-2);max-width:44ch}
+@media (min-width:720px){.ai-people__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){.ai-people__list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* Phones: portraits at 4:5 full width are a screen each; a square crop keeps three people in reach. */
+@media not all and (min-width:720px){.ai-person>.nu-image{aspect-ratio:1;object-position:50% 25%}}
+/* --- end ai --- */
+/* Phones: the photo cards as compact rows (square thumbnail beside the text), so six photographs don't stack full width. */
+@media not all and (min-width:720px){
+  .ai-cards{gap:var(--space-6)}
+  .ai-card{grid-template-columns:var(--space-9) minmax(0,1fr);grid-template-rows:auto;gap:var(--space-4);align-items:start}
+  .ai-card .nu-image{aspect-ratio:3/2}
+  .ai-card .nu-story-card__body{grid-template-rows:none}
+}
+
+/* Accelerating breakthroughs (Zach 11-04: "spacing here is strange", then "the paragraph fits better under the left heading"): the
+   heading and its lede stack in columns 1-6, and the six areas run from column 7 starting level with the heading, the list's top rule
+   on the heading's cap height, so the two columns start together and nothing floats. */
+@media (min-width:960px){
+  .ai-research{display:grid;grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));grid-template-rows:auto auto 1fr;column-gap:var(--layout-gutter);align-items:start}
+  .ai-research>.nu-section-header{display:contents}
+  .ai-research>.nu-section-header>.nu-heading{grid-column:1 / span 6;grid-row:2;text-box:trim-start cap alphabetic}
+  .ai-research>.nu-section-header>.nu-section-header__body{grid-column:1 / span 6;grid-row:3;margin-top:var(--space-5)}
+  .ai-research>.ai-areas{grid-column:7 / -1;grid-row:2 / span 2;margin-top:0;display:block}
+  .ai-research .ai-areas__item:first-child{border-top:var(--border-hair) solid var(--line)}
+}
+/* Cards: each cue sits at its card's foot, so cues in a row share a line whether or not a card has a meta line. */
+.ai-card .nu-story-card__body{display:flex;flex-direction:column;align-items:flex-start}
+.ai-card .ai-cue{margin-top:auto}
+/* Phones: the hero's lede keeps clear of the pause control at its right. */
+@media not all and (min-width:960px){.ai-hero .nu-hero-page__copy{padding-right:calc(var(--layout-target) + var(--space-4))}}
+
+/* Enterprise continues the intro (Zach 11-04: "massive gap and doesn't feel cohesively designed with the text block above"): its
+   heading, sentence and link run on the intro's reading edge (column 7), and the photograph follows under them on columns 7-12,
+   so the opening reads as one column instead of a statement and a split block with an empty column between. */
+@media (min-width:960px){
+  .ai-enterprise .nu-media-text__copy{grid-column:7 / -1;grid-row:1;max-width:none}
+  .ai-enterprise .nu-media-text__copy>.nu-heading{max-width:22ch}
+  .ai-enterprise .nu-media-text__copy>.nu-text{max-width:52ch}
+  .ai-enterprise{row-gap:0}
+  .ai-enterprise .nu-media-text__media{grid-column:7 / -1;grid-row:2;margin-top:var(--space-7)}
+  section.nu-media-text.ai-enterprise .nu-media-text__media .nu-image.nu-image:not(.nu-image--natural){aspect-ratio:21/9;height:auto;object-fit:cover}  /* outranks MediaText's own 3:2 */
+}
+/* Key resources: the live eyebrow stays above each row's title on this page (Zach 11-04). The system's list sets meta under the
+   title; this page is rebuilt without eyebrows in the three takes. */
+.ai-resources .nu-card-grid--list .nu-story-card__body>:is(.nu-text--meta,.nu-meta-list){order:-1}
+@media (min-width:960px){.ai-resources .nu-card-grid--list .nu-story-card__body>:is(.nu-text--meta,.nu-meta-list){text-box:trim-start cap alphabetic}}

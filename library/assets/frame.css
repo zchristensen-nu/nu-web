@@ -1,0 +1,12 @@
+/* A specimen alone (docs/library/frame/): the ground it asks for, nothing else. */
+html,body{margin:0}
+html[data-frame-mode="light"]{background:var(--ref-nu-canvas)}
+html[data-frame-mode="dark"]{background:var(--ref-gray-900)}
+.lb-frame{background:var(--surface);color:var(--on-surface);font-family:var(--font-sans);min-height:100vh}
+/* the old review sheets' frame chrome is the library's job now */
+.lb-frame .ds-bar{display:none}
+.lb-frame--pad{min-height:0;padding:var(--space-8) var(--layout-edge)}
+.lb-frame .ds-sheet{min-height:0}
+/* the specimens' demo rows (states side by side, drawn for a 1440 sheet) scroll sideways in a narrow window instead of
+   widening the page */
+.lb-frame .ds-row{max-width:100vw;overflow-x:auto;overscroll-behavior-x:contain}

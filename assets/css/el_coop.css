@@ -1,0 +1,46 @@
+/* co-op page (el_coop, rebuilt from the live page 2026-11-02): page glue only, scoped under .coop-home / .coop-hero, because build.py links
+   this file on every page. Tokens only. */
+
+/* The hero's words were inside the live image; here they are the H1 and its lead. */
+.coop-hero .nu-hero-page__copy .nu-heading{max-width:10ch}
+
+/* Quick links: SectionNav's sticky row, on the content edge. */
+.coop-home .coop-menu{padding-inline:var(--layout-edge)}
+
+/* Learn: PointList with its own head (heading on columns 1–6, rows from column 7). */
+.coop-home .coop-learn em{font-style:italic}
+
+/* Captions under the portraits: the name, then the placement in Medium (as live). */
+.coop-home .nu-figure__caption{display:grid;gap:var(--space-1);margin-top:var(--space-3)}
+.coop-home .nu-figure__caption strong{font-weight:var(--fw-medium)}
+.coop-home .nu-media-text__media.nu-figure{overflow:visible;background:none}
+
+/* Graduate ahead: the photograph at content width between the head and the figures. */
+.coop-home .coop-ahead__photo{margin:0 0 var(--space-7)}
+.coop-home .coop-ahead__photo .nu-image{width:100%;height:auto;aspect-ratio:21/10;object-fit:cover}
+.coop-home .coop-ahead__more{margin-top:var(--space-7)}
+
+/* Partners: the line, then the marks five across from 960px. */
+.coop-home .coop-partners__title strong{font-weight:inherit}
+.coop-home .coop-logos{margin-top:var(--space-7)}
+@media (min-width:960px){.coop-home .coop-logos{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+/* The film: content video (sound, native controls), so nothing plays until asked. */
+.coop-home .coop-film__video{display:block;width:100%;aspect-ratio:16/9;background:var(--surface-sunken)}
+@media (min-width:960px){.coop-home .coop-film{align-items:start}.coop-home .coop-film .nu-media-text__copy{align-self:center}}
+
+/* FAQ: the heading and the handbooks on columns 1–6, the questions from column 7. */
+.coop-home .coop-faq__head{display:grid;gap:var(--space-5);align-content:start}
+.coop-home .coop-faq__books{display:grid;gap:var(--space-3);justify-items:start;margin:0;padding:0;list-style:none}
+@media (min-width:960px){.coop-home .coop-faq__head{grid-column:1 / span 6}}
+
+/* The close follows the FAQ on Canvas: one hairline, no doubled seam. */
+.coop-home .coop-close .nu-action-band__copy{justify-items:center}
+
+/* Audit polish (Zach 11-04). Learn: the five claims run their full six columns, one line each where they fit, so the rows are equal. */
+@media (min-width:960px){.coop-home .coop-learn .nu-point-list__claim{max-width:none}}
+/* Support: the two actions side by side, wrapping only when they must. */
+.coop-home .coop-support .nu-media-text__actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+/* A link that is a whole sentence: the arrow follows its last word instead of the line's far end. */
+.coop-home .coop-ahead__more{display:inline-block;min-height:0}
+.coop-home .coop-ahead__more>.nu-icon{display:inline;vertical-align:-0.125em;margin-inline-start:var(--space-2)}
