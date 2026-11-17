@@ -340,16 +340,15 @@ input::placeholder,textarea::placeholder{color:var(--on-surface-muted);opacity:1
 
 /* ---------- Reveal ----------
    `data-reveal` on an element, or `data-reveal-stagger` on a container whose children arrive in order: once, as it scrolls into
-   view, opacity and --reveal-shift (12px). `data-reveal="unmask"` is for a large picture: it does not slide, its frame opens from
-   a --reveal-inset crop. build/js/dx.js arms only what is below the fold at load (.is-waiting), so nothing flashes and nothing is
-   hidden without the script. A stagger steps its first four children by --reveal-stagger; a longer list arrives as one unit. */
+   view, opacity and --reveal-shift (12px). Text and groups only: pictures never animate (Zach 11-17), so `data-reveal="unmask"`,
+   once a picture's frame opening from a crop, is inert (CSS and build/js/dx.js skip it). build/js/dx.js arms only what is below
+   the fold at load (.is-waiting), so nothing flashes and nothing is hidden without the script. A stagger steps its first four
+   children by --reveal-stagger; a longer list arrives as one unit. */
 @media (prefers-reduced-motion:no-preference){
-  [data-reveal].is-waiting,[data-reveal-stagger].is-waiting>*{opacity:0;translate:0 var(--reveal-shift)}
-  [data-reveal="unmask"].is-waiting{translate:none;clip-path:inset(var(--reveal-inset))}
-  [data-reveal].is-revealing,[data-reveal-stagger].is-revealing>*{
-    transition:opacity var(--dur-slow) var(--ease-out),translate var(--dur-slow) var(--ease-out),clip-path var(--dur-scene) var(--ease-out);
+  [data-reveal]:not([data-reveal="unmask"]).is-waiting,[data-reveal-stagger].is-waiting>*{opacity:0;translate:0 var(--reveal-shift)}
+  [data-reveal]:not([data-reveal="unmask"]).is-revealing,[data-reveal-stagger].is-revealing>*{
+    transition:opacity var(--dur-slow) var(--ease-out),translate var(--dur-slow) var(--ease-out);
     transition-delay:calc(var(--reveal-i,0) * var(--reveal-stagger))}
-  [data-reveal="unmask"].is-revealing{clip-path:inset(0)}
 }
 
 /* ---------- Rise (opt-in) ----------
@@ -361,25 +360,9 @@ input::placeholder,textarea::placeholder{color:var(--on-surface-muted);opacity:1
 }
 @keyframes nu-rise{to{translate:0 0}}
 
-/* ---------- Drift ----------
-   Depth for large pictures: `data-drift` on the frame that directly holds an <img> or <video>. The frame and every word stay on
-   the grid; the picture is a few percent larger than its frame and travels a few percent of the frame's height, linearly, as the
-   frame crosses the window (never more than --space-5 either way). Strengths: `data-drift` (5% of the frame in all),
-   `data-drift="soft"` (2.5%: pinned frames, the smaller picture of a pair), `data-drift="strong"` (8%: full-bleed heroes).
-   The picture is enlarged by exactly what the travel needs and no more: --drift-scale* = 1 + 2 x the shift's percentage (1.05,
-   1.025, 1.08), so at either end of the travel the picture's edge meets the frame's edge. Enlarging costs sharpness
-   (tools/upscale.cjs counts this scale against the picture's pixels): change a shift and its scale together, never the scale alone.
-   Large media only: never on cards, thumbnails, portraits in lists, logos or type, and never on a frame that is also
-   `data-hover-media` (both set the picture's scale). Still where scroll-driven animation is unsupported or motion is reduced. */
-[data-drift]{overflow:clip}
-@supports (animation-timeline:view()){
-  @media (prefers-reduced-motion:no-preference){
-    [data-drift]>:where(img,video){--drift-by:var(--drift-shift);scale:var(--drift-scale);animation:nu-drift linear both;animation-timeline:view();animation-range:cover}
-    [data-drift="soft"]>:where(img,video){--drift-by:var(--drift-shift-soft);scale:var(--drift-scale-soft)}
-    [data-drift="strong"]>:where(img,video){--drift-by:var(--drift-shift-strong);scale:var(--drift-scale-strong)}
-  }
-}
-@keyframes nu-drift{from{translate:0 calc(var(--drift-by) * -1)}to{translate:0 var(--drift-by)}}
+/* ---------- Drift (retired 11-17) ----------
+   `data-drift` once moved a large picture a few percent as its frame crossed the window. Pictures don't animate any more (Zach
+   11-17: some did and some didn't), so the attribute is inert; patterns may still carry it. */
 
 /* ---------- Hover language for cards and rows ----------
    `data-hover` on the interactive root (the link, or the card that holds one link); inside it: `data-hover-media` on the square

@@ -589,7 +589,8 @@
 
   /* ---------- Reveal ---------- */
   function reveal() {
-    var targets = document.querySelectorAll('[data-reveal],[data-reveal-stagger]');
+    // Pictures don't animate (Zach 11-17: "drop the image animations. it's weird how some do it and some don't"): an unmask stands still.
+    var targets = document.querySelectorAll('[data-reveal]:not([data-reveal="unmask"]),[data-reveal-stagger]');
     if (!targets.length || DX.reduced() || !('IntersectionObserver' in window)) return;
     var waiting = [];
     var fold = window.innerHeight;
