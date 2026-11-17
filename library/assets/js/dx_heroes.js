@@ -133,7 +133,7 @@
       watchers.forEach(function (io) { io.disconnect(); });
       var h = window.innerHeight;
       watchers = [base(), Math.round(h * 0.55), Math.round(h * 0.8)].map(function (y) {
-        return new IntersectionObserver(look, { rootMargin: -y + 'px 0px ' + -(h - y - 1) + 'px 0px', threshold: 0 });
+        return new IntersectionObserver(look, { root: DX.view, rootMargin: -y + 'px 0px ' + -(h - y - 1) + 'px 0px', threshold: 0 });
       });
       watchers.push(new IntersectionObserver(look, { threshold: [0, 1] }));
       watchers.forEach(function (io) { targets.forEach(function (t) { io.observe(t); }); });

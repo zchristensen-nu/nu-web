@@ -51,7 +51,7 @@
       if (!use()) return;
       var keys = Object.keys(on).map(Number);
       if (keys.length) set(Math.min.apply(null, keys));
-    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+    }, { root: DX.view, rootMargin: '-50% 0px -50% 0px', threshold: 0 });
     each(items, function (item) { io.observe(item); });
   };
   var byTouch = function () { return wide.matches && !pointer.matches; };
@@ -223,7 +223,7 @@
         var n = 0;
         for (var k = 0; k < heads.length; k++) if (passed[k]) n = k;
         set(n);
-      }, { rootMargin: '99999px 0px ' + -Math.max(0, Math.round(window.innerHeight - line)) + 'px 0px', threshold: 0 });
+      }, { root: DX.view, rootMargin: '99999px 0px ' + -Math.max(0, Math.round(window.innerHeight - line)) + 'px 0px', threshold: 0 });
       heads.forEach(function (h) { io.observe(h); });
     };
     watch();

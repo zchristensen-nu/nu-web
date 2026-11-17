@@ -661,6 +661,8 @@ textarea.nu-input{min-height:calc(var(--space-9) + var(--space-7));resize:vertic
 .nu-scrim--full{background:var(--scrim)}
 .nu-scrim--scene{background:linear-gradient(to top,var(--surface) 0%,transparent 55%),linear-gradient(to right,var(--scrim) 0%,transparent 65%),var(--effect-vignette)}
 .nu-scrim--poster{background:linear-gradient(to top,var(--scrim) 0%,var(--scrim) 28%,transparent 72%)}
+/* --panel: a poster whose copy runs to a paragraph (AI's key resources, 11-17): solid under the lower half, so long copy keeps 4.5:1 */
+.nu-scrim--panel{background:linear-gradient(to top,var(--scrim) 0%,var(--scrim) 60%,transparent 98%)}
 
 /* ---- components/atoms/select.css ---- */
 /* Select: a native <select> styled as a field, with the system chevron. The native control keeps platform pickers and keyboard behaviour. */
@@ -2396,7 +2398,7 @@ span.nu-ai-major-index__link{font-size:var(--fs-h4);line-height:var(--lh-title)}
   .nu-card-grid--feature .nu-card-grid__items>li.nu-card-grid__lead{grid-column:1 / -1}
   .nu-card-grid--feature .nu-card-grid__lead>.nu-story-card{grid-column:1 / -1;grid-template-columns:subgrid;column-gap:var(--layout-gutter);align-items:start;row-gap:0}
   .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__media{grid-column:1 / span 7}
-  .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__body{grid-column:9 / -1;align-self:center}
+  .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__body{grid-column:8 / -1;align-self:center}  /* one gutter from the picture, like the rows under it (Zach 11-17: "huge space" at column 9) */
   .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__title{max-width:20ch;font-size:var(--fs-h3);font-weight:var(--fw-regular);letter-spacing:var(--tracking-title);line-height:var(--lh-title)}  /* the weight of the story titles beside it, as h4 sets them (an h2 class set it Light) */
   .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead){grid-column:span 6}
   .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead)>.nu-story-card{grid-column:1 / -1;grid-template-columns:subgrid;column-gap:var(--layout-gutter);align-items:start}
@@ -4941,7 +4943,7 @@ div.nu-index-rows__row{grid-template-columns:var(--row-thumb) minmax(0,1fr);grid
 /* ---- components/organisms/media-text.css ---- */
 /* MediaText: a photograph or film beside its copy on the 12-column grid. The geometry is a choice, so a page's picture-and-copy
    sections need not repeat one shape:
-   split    media 7 columns with the copy on 9–12 (default, one column of air); --media-8 (8 / 4, no empty column), --media-6 (6 / 6)
+   split    even halves, media 1–6 and copy 7–12 (default, 11-17); --media-7 (7 with the copy on 9–12, one column of air), --media-8 (8 / 4), --media-5
             and --media-5 (5 columns, copy-led on 7–12). --reverse puts the media on the right in every split.
    ratio    3:2 by default; --ratio-4x5, --ratio-1x1, --ratio-16x9.
    copy     centred on the picture (default, Zach 11-13: "aligned center with the image, not top aligned"); --copy-top puts the
@@ -4985,10 +4987,15 @@ div.nu-index-rows__row{grid-template-columns:var(--row-thumb) minmax(0,1fr);grid
 
 @media (min-width:960px){
   .nu-media-text{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
-  .nu-media-text__media{grid-column:1 / span 7;grid-row:1}
-  .nu-media-text__copy{grid-column:9 / -1;grid-row:1}
-  .nu-media-text--reverse .nu-media-text__media{grid-column:6 / -1}
-  .nu-media-text--reverse .nu-media-text__copy{grid-column:1 / span 4}
+  /* Even halves by default (Zach 11-17 on AI: "content feels too tight. image is too wide"): the copy had 4 of 12 columns */
+  .nu-media-text__media{grid-column:1 / span 6;grid-row:1}
+  .nu-media-text__copy{grid-column:7 / -1;grid-row:1}
+  .nu-media-text--reverse .nu-media-text__media{grid-column:7 / -1}
+  .nu-media-text--reverse .nu-media-text__copy{grid-column:1 / span 6}
+  .nu-media-text--media-7 .nu-media-text__media{grid-column:1 / span 7}
+  .nu-media-text--media-7 .nu-media-text__copy{grid-column:9 / -1}
+  .nu-media-text--media-7.nu-media-text--reverse .nu-media-text__media{grid-column:6 / -1}
+  .nu-media-text--media-7.nu-media-text--reverse .nu-media-text__copy{grid-column:1 / span 4}
   .nu-media-text--media-8 .nu-media-text__media{grid-column:1 / span 8}
   .nu-media-text--media-8.nu-media-text--reverse .nu-media-text__media{grid-column:5 / -1}
   .nu-media-text--media-6 .nu-media-text__media{grid-column:1 / span 6}

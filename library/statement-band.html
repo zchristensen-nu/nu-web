@@ -101,5 +101,36 @@
   <div><h2 class="lb-h2">Drawn from</h2><ul class="lb-list"><li>DIRECTIONS.md 2026-11-12: the section-pattern library (heroes, statements, closers, Read and Operate pages)</li><li>22a intro lines under the billboard</li><li>Statement molecule (the left-set pull-line this joins)</li></ul></div>
 </section></main>
 </div>
-</body>
+<!--rv-dock--><style>
+.rv-dock{position:fixed;z-index:2147483000;left:50%;bottom:var(--space-4,16px);transform:translateX(-50%);display:flex;align-items:center;gap:var(--space-1,4px);
+  max-width:calc(100vw - 2 * var(--space-4,16px));padding:var(--space-1,4px);border-radius:var(--radius-pill,999px);background:var(--ref-gray-800,#1c1c1e);color:var(--ref-nu-canvas,#f6f6f4);
+  box-shadow:inset 0 0 0 1px rgba(246,246,244,.14),0 8px 24px rgba(15,15,16,.24),0 1px 3px rgba(15,15,16,.2);font:400 var(--fs-small,.875rem)/1.2 var(--font-sans,system-ui,sans-serif);-webkit-font-smoothing:antialiased}
+.rv-dock a,.rv-dock summary{display:inline-flex;align-items:center;gap:var(--space-2,8px);min-height:40px;padding:0 var(--space-3,12px);border-radius:var(--radius-pill,999px);color:inherit;text-decoration:none;cursor:pointer;white-space:nowrap}
+.rv-dock a:hover,.rv-dock summary:hover,.rv-dock details[open] summary{background:rgba(246,246,244,.14)}
+.rv-dock a:focus-visible,.rv-dock summary:focus-visible{outline:2px solid var(--ref-nu-canvas,#f6f6f4);outline-offset:-2px}
+.rv-dock svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.rv-dock__step{width:40px;justify-content:center;padding:0 !important}
+.rv-dock__step[aria-disabled]{opacity:.35;pointer-events:none}
+.rv-dock__here{padding:0 var(--space-2,8px);font-weight:var(--fw-medium,600);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;max-width:22ch}
+.rv-dock__up .rv-dock__label{max-width:22ch;overflow:hidden;text-overflow:ellipsis}
+.rv-dock__rule{width:1px;align-self:stretch;margin:var(--space-2,8px) var(--space-1,4px);background:rgba(246,246,244,.24)}
+.rv-dock details{position:static}
+.rv-dock summary{list-style:none}.rv-dock summary::-webkit-details-marker{display:none}
+.rv-dock__menu{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + var(--space-2,8px));width:min(320px,calc(100vw - 2 * var(--space-4,16px)));max-height:min(70vh,560px);overflow:auto;
+  padding:var(--space-2,8px);border-radius:var(--radius-md,12px);background:var(--ref-nu-canvas,#f6f6f4);color:var(--ref-gray-800,#1c1c1e);box-shadow:0 24px 60px rgba(15,15,16,.18),0 2px 6px rgba(15,15,16,.12)}
+.rv-dock__menu p{margin:var(--space-3,12px) var(--space-3,12px) var(--space-1,4px);font-size:.75rem;letter-spacing:.02em;color:var(--ref-x-gray-600,#626367)}
+.rv-dock__menu p:first-child{margin-top:var(--space-1,4px)}
+.rv-dock__menu ul{list-style:none;margin:0;padding:0}
+.rv-dock__menu a{display:flex;min-height:36px;padding:0 var(--space-3,12px);border-radius:var(--radius-sm,8px)}
+.rv-dock__menu a:hover{background:var(--ref-gray-200,#ebebeb)}
+.rv-dock__menu a:focus-visible{outline-color:var(--ref-gray-800,#1c1c1e)}
+.rv-dock__menu a[aria-current]{font-weight:var(--fw-medium,600)}
+.rv-dock__menu a[aria-current]::after{content:"";width:6px;height:6px;margin-left:auto;border-radius:50%;background:var(--ref-nu-red,#c8102e)}
+@media (max-width:559px){.rv-dock__here,.rv-dock__label{display:none}.rv-dock__home,.rv-dock__up{width:40px;justify-content:center;padding:0 !important}}
+/* the page's last ground runs on under the dock, so nothing at the foot of a page sits behind it */
+.nu-global-footer::after{content:"";display:block;height:calc(40px + 2 * var(--space-4,16px))}
+@media print{.rv-dock{display:none}}
+</style><nav class="rv-dock" aria-label="Review"><a class="rv-dock__home" href="../index.html#in-use"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg><span class="rv-dock__label">Overview</span></a><span class="rv-dock__rule" aria-hidden="true"></span><span class="rv-dock__here" aria-current="page">StatementBand</span><details><summary><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4h10M3 8h10M3 12h10"/></svg><span class="rv-dock__label">Pages</span></summary><div class="rv-dock__menu"><p>Review</p><ul role="list"><li><a href="../index.html">Overview</a></li><li><a href="../sitemap/index.html">Sitemap</a></li><li><a href="../content-model/index.html">Content model</a></li><li><a href="../library/index.html" aria-current="page">Component library</a></li><li><a href="../dx/index.html">Section patterns</a></li></ul><p>Home</p><ul role="list"><li><a href="../home/index.html">Home page</a></li></ul><p>Pillars</p><ul role="list"><li><a href="../experientiallearning/index.html">Experiential learning</a></li><li><a href="../www/global-university-system/index.html">Global university system</a></li><li><a href="../research/index.html">Research</a></li><li><a href="../www/ai/index.html">AI</a></li><li><a href="../entrepreneurship/index.html">Entrepreneurship</a></li></ul><p>Front doors and offices</p><ul role="list"><li><a href="../www/about/index.html">About</a></li><li><a href="../www/academics/index.html">Academics</a></li><li><a href="../experientiallearning/co-op/index.html">Co-op</a></li><li><a href="../boston/index.html">Boston</a></li><li><a href="../externalaffairs/index.html">External Affairs</a></li></ul><p>Utility pages</p><ul role="list"><li><a href="../www/privacy-information/index.html">Privacy</a></li><li><a href="../www/emergency-information/index.html">Emergency information</a></li></ul></div></details></nav><script>(function(){var d=document.querySelector('.rv-dock details');if(!d)return;
+document.addEventListener('click',function(e){if(d.open&&!d.contains(e.target))d.open=false});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&d.open){d.open=false;d.querySelector('summary').focus()}});})();</script><!--/rv-dock--></body>
 </html>

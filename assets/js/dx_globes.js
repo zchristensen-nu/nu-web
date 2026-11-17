@@ -205,7 +205,7 @@
     new IntersectionObserver(function (es) {
       g.visible = es[es.length - 1].isIntersecting;
       if (g.visible) g.kick();
-    }, { rootMargin: '10% 0px' }).observe(el);
+    }, { root: DX.view, rootMargin: '10% 0px' }).observe(el);
     /* the ground can change under it (Night on a section, the reader's scheme) */
     new MutationObserver(function () { g.colours(); g.kick(true); }).observe(document.documentElement, { attributes: true, subtree: true, attributeFilter: ['data-mode'] });
     if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { g.colours(); g.kick(); });

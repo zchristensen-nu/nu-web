@@ -31,7 +31,7 @@
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
     entries.forEach(function (en) { (en.target.__flexScenes || []).forEach(function (s) { if (en.isIntersecting) near.add(s); else near.delete(s); }); });
     kick();
-  }, { rootMargin: '50% 0px 50% 0px' }) : null;
+  }, { root: DX.view, rootMargin: '50% 0px 50% 0px' }) : null;
   function scene(el, s) {
     s.el = el; scenes.push(s);
     if (!el.__flexScenes) { el.__flexScenes = []; if (io) io.observe(el); }

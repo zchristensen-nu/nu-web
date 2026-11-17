@@ -33,6 +33,11 @@
 (function () {
   'use strict';
   var DX = window.DX = window.DX || {};
+  // The root every scroll trigger measures against: this document's own window. With no root, a page inside a cross-origin frame
+  // (the claude.ai artifact) is measured against the top window and its rootMargin is ignored, so a line drawn partway down the
+  // window became the window's edge: StickyScenes changed chapter as soon as the next heading came into view (Zach 11-17).
+  // Older browsers that refuse a document root keep the implicit one.
+  DX.view = (function () { try { new IntersectionObserver(function () {}, { root: document }); return document; } catch (e) { return null; } })();
   var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   var raf = window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (fn) { return window.setTimeout(fn, 16); };
   DX.reduced = function () { return mq.matches; };
@@ -601,7 +606,7 @@
     // Anything whose top has come into the window, or been passed (a jump to an anchor or the end of the page), arrives.
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) show(en.target); });
-    }, { rootMargin: '99999px 0px -8% 0px', threshold: 0 });
+    }, { root: DX.view, rootMargin: '99999px 0px -8% 0px', threshold: 0 });
     function show(el) {
       io.unobserve(el);
       waiting = waiting.filter(function (w) { return w !== el; });

@@ -315,7 +315,7 @@ for (const reel of document.querySelectorAll('.st-reel')) {
     new ResizeObserver(measure).observe(stack);
     top.classList.add('st-top--travel');
     // (the root's top edge is drawn 1px in: a strip whose foot touches the window's top edge still counts as showing)
-    new IntersectionObserver((entries) => stack.classList.toggle('is-stuck', !entries[0].isIntersecting), { rootMargin: '-1px 0px 0px 0px' }).observe(strip);
+    new IntersectionObserver((entries) => stack.classList.toggle('is-stuck', !entries[0].isIntersecting), { root: (() => { try { new IntersectionObserver(() => {}, { root: document }); return document; } catch (e) { return null; } })(), rootMargin: '-1px 0px 0px 0px' }).observe(strip);
   }
 }
 

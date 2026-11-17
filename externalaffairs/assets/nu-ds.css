@@ -661,6 +661,8 @@ textarea.nu-input{min-height:calc(var(--space-9) + var(--space-7));resize:vertic
 .nu-scrim--full{background:var(--scrim)}
 .nu-scrim--scene{background:linear-gradient(to top,var(--surface) 0%,transparent 55%),linear-gradient(to right,var(--scrim) 0%,transparent 65%),var(--effect-vignette)}
 .nu-scrim--poster{background:linear-gradient(to top,var(--scrim) 0%,var(--scrim) 28%,transparent 72%)}
+/* --panel: a poster whose copy runs to a paragraph (AI's key resources, 11-17): solid under the lower half, so long copy keeps 4.5:1 */
+.nu-scrim--panel{background:linear-gradient(to top,var(--scrim) 0%,var(--scrim) 60%,transparent 98%)}
 
 /* ---- components/atoms/select.css ---- */
 /* Select: a native <select> styled as a field, with the system chevron. The native control keeps platform pickers and keyboard behaviour. */
@@ -1923,19 +1925,27 @@ a.nu-proof-point:focus-visible{outline-offset:var(--space-2)}
 .nu-ai-major-index__head{display:grid;gap:var(--space-4);justify-items:start;align-content:start;min-width:0}
 .nu-ai-major-index__head>.nu-text{max-width:40ch;color:var(--on-surface-2)}
 .nu-ai-major-index__head>.nu-arrow-link{margin-top:calc(var(--space-2) * -1)}
-.nu-ai-major-index__body{display:grid;gap:var(--space-5);min-width:0}
+.nu-ai-major-index__body{display:grid;align-content:start;gap:var(--space-5);min-width:0}
 .nu-ai-major-index__root{margin:0;font-size:var(--fs-h2);font-weight:var(--fw-display);line-height:var(--lh-heading);letter-spacing:var(--tracking-heading);color:var(--on-surface-muted);text-wrap:balance}
-.nu-ai-major-index__list{margin:0;padding:0;list-style:none;column-gap:var(--layout-gutter)}
+.nu-ai-major-index__list{align-content:start;margin:0;padding:0;list-style:none;column-gap:var(--layout-gutter)}
 .nu-ai-major-index__list li{break-inside:avoid;border-top:var(--border-hair) solid var(--line)}
 .nu-ai-major-index__link{display:flex;align-items:center;min-height:var(--layout-target);padding-block:var(--space-2);
   font-size:var(--fs-h3);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--tracking-title);color:var(--on-surface);
   text-decoration:underline;text-decoration-thickness:var(--border-hair);text-underline-offset:.16em;text-decoration-color:transparent;
   transition:text-decoration-color var(--dur-fast) var(--ease-out)}
 @media (hover:hover){a.nu-ai-major-index__link:hover{text-decoration-color:currentColor}}
+/* A name with no target (a span) is a list of names, not links: one rung down (h4), so two columns of names stay on one or two
+   lines and read as an index, not a run of links (Zach 11-16). */
+span.nu-ai-major-index__link{font-size:var(--fs-h4);line-height:var(--lh-title)}
+/* --media: the names in one column under the sentence (columns 1 to 6), a 3:2 picture on columns 7 to 12 level with the heading. */
+.nu-ai-major-index--media .nu-ai-major-index__list{justify-self:stretch;margin-top:var(--space-4)}
+.nu-ai-major-index__media{margin:0}
+.nu-ai-major-index__media .nu-image{width:100%}
 /* Two columns on shared rows, so every rule runs level across both (a name that wraps makes its whole row taller). A name with
    no target is a span: the same type, no hover. */
 @media (min-width:720px){
   .nu-ai-major-index__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nu-ai-major-index--media .nu-ai-major-index__list{grid-template-columns:minmax(0,1fr)}
 }
 @media (min-width:960px){
   .nu-ai-major-index{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
@@ -2388,12 +2398,14 @@ a.nu-proof-point:focus-visible{outline-offset:var(--space-2)}
   .nu-card-grid--feature .nu-card-grid__items>li.nu-card-grid__lead{grid-column:1 / -1}
   .nu-card-grid--feature .nu-card-grid__lead>.nu-story-card{grid-column:1 / -1;grid-template-columns:subgrid;column-gap:var(--layout-gutter);align-items:start;row-gap:0}
   .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__media{grid-column:1 / span 7}
-  .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__body{grid-column:9 / -1;align-self:center}
+  .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__body{grid-column:8 / -1;align-self:center}  /* one gutter from the picture, like the rows under it (Zach 11-17: "huge space" at column 9) */
   .nu-card-grid--feature .nu-card-grid__lead .nu-story-card__title{max-width:20ch;font-size:var(--fs-h3);font-weight:var(--fw-regular);letter-spacing:var(--tracking-title);line-height:var(--lh-title)}  /* the weight of the story titles beside it, as h4 sets them (an h2 class set it Light) */
   .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead){grid-column:span 6}
   .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead)>.nu-story-card{grid-column:1 / -1;grid-template-columns:subgrid;column-gap:var(--layout-gutter);align-items:start}
   .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead) .nu-story-card__media{grid-column:1 / span 3}
   .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead) .nu-story-card__body{grid-column:4 / -1}
+  /* the two beside their 3:2 pictures: titles one rung down (lead size), so title, meta and link sit within the picture's height (Zach 11-16) */
+  .nu-card-grid--feature .nu-card-grid__items:has(>li:nth-child(3):last-child)>li:not(.nu-card-grid__lead) .nu-story-card__title{font-size:var(--fs-lead);line-height:var(--lh-title)}
 }
 
 /* List: ruled rows for a few things the copy should carry (resources, initiatives, front doors): from 960px a 3:2 photograph on
@@ -4072,6 +4084,13 @@ main:has(+ [data-mode="dark"])>.nu-section:where([data-mode],.nu-section--sunken
 .nu-gus-globe__card[hidden]{display:none}
 .nu-gus-globe__close{position:absolute;z-index:1;top:var(--space-5);right:var(--space-5);background:var(--surface-glass)}
 .nu-gus-globe__card-body{display:grid;gap:var(--space-4)}
+/* The card's carousel (built by the page script): a foot under a hairline, held at the card's bottom edge while the card scrolls
+   (phones), with the campus-type tabs on one line and the RailControls pager under them. */
+.nu-gus-globe__card-foot{position:sticky;bottom:calc(var(--space-4) * -1);display:grid;gap:var(--space-3);margin:0 calc(var(--space-4) * -1) calc(var(--space-4) * -1);
+  padding:var(--space-4);border-top:var(--border-hair) solid var(--line);background:var(--surface-glass);backdrop-filter:blur(var(--layout-blur))}
+.nu-gus-globe__card-types{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.nu-gus-globe__card-types .nu-chip{padding-inline:var(--space-3)}
+.nu-gus-globe__card-pager.nu-rail-controls{margin-top:0}
 .nu-gus-globe.is-live .nu-gus-globe__card-body .nu-gus-globe__campus{padding:0;background:none}
 @media (prefers-reduced-motion:no-preference){
   .nu-gus-globe__card:not([hidden]){animation:nu-gus-globe-in var(--dur-base) var(--ease-out)}
@@ -4094,7 +4113,7 @@ main:has(+ [data-mode="dark"])>.nu-section:where([data-mode],.nu-section--sunken
   .nu-gus-globe.is-live .nu-gus-globe__chapter{margin-bottom:0}
   .nu-gus-globe__card{top:auto;bottom:var(--space-4);translate:none;max-height:62svh}
   /* the card takes the step panel's place while it is open (the sticky stage is its own stacking layer, under the steps) */
-  .nu-gus-globe.has-card .nu-gus-globe__steps{opacity:0;pointer-events:none}
+  .nu-gus-globe.has-card .nu-gus-globe__steps,.nu-gus-globe.has-card .nu-gus-globe__text{opacity:0;pointer-events:none}
   @keyframes nu-gus-globe-in{from{opacity:0;translate:0 var(--space-3)}to{opacity:1;translate:0 0}}
 }
 
@@ -4924,7 +4943,7 @@ div.nu-index-rows__row{grid-template-columns:var(--row-thumb) minmax(0,1fr);grid
 /* ---- components/organisms/media-text.css ---- */
 /* MediaText: a photograph or film beside its copy on the 12-column grid. The geometry is a choice, so a page's picture-and-copy
    sections need not repeat one shape:
-   split    media 7 columns with the copy on 9–12 (default, one column of air); --media-8 (8 / 4, no empty column), --media-6 (6 / 6)
+   split    even halves, media 1–6 and copy 7–12 (default, 11-17); --media-7 (7 with the copy on 9–12, one column of air), --media-8 (8 / 4), --media-5
             and --media-5 (5 columns, copy-led on 7–12). --reverse puts the media on the right in every split.
    ratio    3:2 by default; --ratio-4x5, --ratio-1x1, --ratio-16x9.
    copy     centred on the picture (default, Zach 11-13: "aligned center with the image, not top aligned"); --copy-top puts the
@@ -4968,10 +4987,15 @@ div.nu-index-rows__row{grid-template-columns:var(--row-thumb) minmax(0,1fr);grid
 
 @media (min-width:960px){
   .nu-media-text{grid-template-columns:repeat(var(--layout-columns),minmax(0,1fr));column-gap:var(--layout-gutter)}
-  .nu-media-text__media{grid-column:1 / span 7;grid-row:1}
-  .nu-media-text__copy{grid-column:9 / -1;grid-row:1}
-  .nu-media-text--reverse .nu-media-text__media{grid-column:6 / -1}
-  .nu-media-text--reverse .nu-media-text__copy{grid-column:1 / span 4}
+  /* Even halves by default (Zach 11-17 on AI: "content feels too tight. image is too wide"): the copy had 4 of 12 columns */
+  .nu-media-text__media{grid-column:1 / span 6;grid-row:1}
+  .nu-media-text__copy{grid-column:7 / -1;grid-row:1}
+  .nu-media-text--reverse .nu-media-text__media{grid-column:7 / -1}
+  .nu-media-text--reverse .nu-media-text__copy{grid-column:1 / span 6}
+  .nu-media-text--media-7 .nu-media-text__media{grid-column:1 / span 7}
+  .nu-media-text--media-7 .nu-media-text__copy{grid-column:9 / -1}
+  .nu-media-text--media-7.nu-media-text--reverse .nu-media-text__media{grid-column:6 / -1}
+  .nu-media-text--media-7.nu-media-text--reverse .nu-media-text__copy{grid-column:1 / span 4}
   .nu-media-text--media-8 .nu-media-text__media{grid-column:1 / span 8}
   .nu-media-text--media-8.nu-media-text--reverse .nu-media-text__media{grid-column:5 / -1}
   .nu-media-text--media-6 .nu-media-text__media{grid-column:1 / span 6}
@@ -7117,11 +7141,12 @@ a.nu-milestone-track__card:focus-visible{outline:var(--border-focus) solid var(-
    with an IntersectionObserver, which chapter's first line has passed the middle of the window and marks it aria-current (so the
    chapter being read, the one in the upper half, is the one whose picture shows); the styles do the rest. Under the frame a line cut into one segment per chapter carries one mark that glides to the chapter showing
    (data-indicator: red on Canvas, canvas on Night).
-   From 960px the frame holds five columns, a column of air, and the copy six from column 7 (the reading edge a split header's body
-   uses, so a split header over the scenes and the chapters share one text edge); --reverse puts the frame on the right.
+   From 960px the frame holds six columns and the copy the other six from column 7, one gutter away (Zach 11-16: the column of air
+   between them read as a massive gap); column 7 is the reading edge a split header's body uses, so a split header over the scenes
+   and the chapters share one text edge. --reverse puts the frame on the right.
    Chapters are an h3, an optional meta line (a role, a placement), a few lines (or a short ruled list) and one or two links, one --scene-step apart: only as far as each picture needs for its moment, so two
    chapters share the window with the frame and the section costs about a sixth of a window per chapter. The frame is a
-   landscape (five columns by --size-band-s), shorter than the copy beside it, so every picture has its moment while the frame
+   landscape (six columns by --size-band-s), shorter than the copy beside it, so every picture has its moment while the frame
    is whole in the window. The first chapter starts on the frame's top edge and the last ends on the mark under it, so both
    ends of the scroll are composed.
    Chapters that are not showing step back to the muted ink.
@@ -7137,14 +7162,14 @@ a.nu-milestone-track__card:focus-visible{outline:var(--border-focus) solid var(-
    and its progress mark while that chapter's picture is the one showing (--captions on the wrapper reserves three lines
    for it under the frame).
    --ratio-4x5, --ratio-1x1 (shapes taller than the landscape frame): the pinned frame takes that shape too (by default it is
-   the five-column landscape, which a 3:2 or 16:9 picture fills): as wide as five columns, or as wide as the window's height
+   the six-column landscape, which a 3:2 or 16:9 picture fills): as wide as six columns, or as wide as the window's height
    allows, whichever is less; the progress mark and the caption keep its width. A portrait frame is taller than two short
    chapters: give it three or more.
    A section pattern (docs/BUILDER-GUIDE.md): nu-section on the wrapper, any SectionHeader above. --scene-top and --scene-h are the
    frame's offset and height: it pins under everything the page pins (--pin-top: the unit bar and any travelling bar) and
    never exceeds the window. */
-/* The frame pins on the window's centre line (never under the pinned bars), the line the script reads chapters against, so the
-   chapter being read is the one level with its picture (Zach 11-13: the scroll "is strange": the frame sat at the top while the
+/* The frame pins on the window's centre line (never under the pinned bars); the script changes chapter when the next one's
+   first line rises to the frame's top edge, so the chapter being read is the one level with its picture (Zach 11-13: the scroll "is strange": the frame sat at the top while the
    chapter changed at the middle, and let go while the last chapter was still being read). */
 .nu-sticky-scenes{--scene-top:max(calc(var(--pin-top) + var(--space-5)),calc((var(--layout-window) + var(--pin-top) - var(--scene-h) - var(--scene-foot) - var(--scene-cap,0px)) / 2));--scene-room:calc(var(--layout-window) - var(--pin-top) - var(--space-9));--scene-h:min(var(--size-band-s),var(--scene-room));
   --scene-foot:calc(var(--space-3) + var(--border-rule));--scene-step:var(--size-card-l)}
@@ -7181,13 +7206,13 @@ a.nu-milestone-track__card:focus-visible{outline:var(--border-focus) solid var(-
   /* No script: each chapter is a row of the page's columns: its picture (its caption under it) beside its copy. */
   .nu-sticky-scenes__items{display:contents}
   .nu-sticky-scenes__item{grid-column:1 / -1;grid-template-columns:subgrid;row-gap:var(--space-3);align-items:start}
-  .nu-sticky-scenes__media{grid-column:1 / span 5;grid-row:1}
-  .nu-sticky-scenes__caption{grid-column:1 / span 5;grid-row:2;margin-top:0}
+  .nu-sticky-scenes__media{grid-column:1 / span 6;grid-row:1}
+  .nu-sticky-scenes__caption{grid-column:1 / span 6;grid-row:2;margin-top:0}
   .nu-sticky-scenes__copy{grid-column:7 / -1;grid-row:1}
   .nu-sticky-scenes__item:has(>.nu-sticky-scenes__caption)>.nu-sticky-scenes__copy{grid-row:1 / span 2}
   .nu-sticky-scenes__title{text-box:trim-start cap alphabetic}
   .nu-sticky-scenes--reverse :is(.nu-sticky-scenes__media,.nu-sticky-scenes__caption){grid-column:7 / -1}
-  .nu-sticky-scenes--reverse .nu-sticky-scenes__copy{grid-column:1 / span 5}
+  .nu-sticky-scenes--reverse .nu-sticky-scenes__copy{grid-column:1 / span 6}
 
   /* Scenes: every picture in one pinned frame (the same grid area, rows 1 to the last), the copy in rows of its own beside it.
      Unused rows are empty and the row gap is zero, so three chapters or five need no count in the markup. The pictures share
@@ -7201,7 +7226,7 @@ a.nu-milestone-track__card:focus-visible{outline:var(--border-focus) solid var(-
   /* A chosen shape: the stage is the measure (100cqw), so the frame's width and height are lengths the mark and the caption
      can stand on. */
   .nu-sticky-scenes[class*="nu-sticky-scenes--ratio-"] .nu-sticky-scenes__stage:has([aria-current]){container-type:inline-size;
-    --scene-w:min(calc((100cqw - 11 * var(--layout-gutter)) * 5 / 12 + 4 * var(--layout-gutter)),calc(var(--scene-room) * var(--scene-r)));--scene-h:calc(var(--scene-w) / var(--scene-r))}
+    --scene-w:min(calc((100cqw - 11 * var(--layout-gutter)) * 6 / 12 + 5 * var(--layout-gutter)),calc(var(--scene-room) * var(--scene-r)));--scene-h:calc(var(--scene-w) / var(--scene-r))}
   .nu-sticky-scenes[class*="nu-sticky-scenes--ratio-"] .nu-sticky-scenes__stage:has([aria-current]) :is(.nu-sticky-scenes__media,.nu-sticky-scenes__progress,.nu-sticky-scenes__caption){width:var(--scene-w)}
   .nu-sticky-scenes--reverse[class*="nu-sticky-scenes--ratio-"] .nu-sticky-scenes__stage:has([aria-current]) :is(.nu-sticky-scenes__media,.nu-sticky-scenes__progress,.nu-sticky-scenes__caption){justify-self:end}
   /* The caption of the chapter showing, under the frame and its mark; it leaves and arrives with its picture. */
@@ -7222,7 +7247,7 @@ a.nu-milestone-track__card:focus-visible{outline:var(--border-focus) solid var(-
 
   /* The progress mark: a line cut into one segment per chapter (the row's own ground), pinned under the frame; the mark is the
      row's indicator and glides to the current segment. --count comes from the markup. */
-  .nu-sticky-scenes__stage:has([aria-current]) .nu-sticky-scenes__progress{--indicator-color:var(--accent);display:flex;gap:var(--space-2);grid-column:1 / span 5;grid-row:1 / span 6;position:sticky;z-index:2;
+  .nu-sticky-scenes__stage:has([aria-current]) .nu-sticky-scenes__progress{--indicator-color:var(--accent);display:flex;gap:var(--space-2);grid-column:1 / span 6;grid-row:1 / span 6;position:sticky;z-index:2;
     top:calc(var(--scene-top) + var(--scene-h) + var(--space-3));height:var(--border-rule);margin-top:calc(var(--scene-h) + var(--space-3));
     background:repeating-linear-gradient(to right,var(--line) 0 calc((100% + var(--space-2)) / var(--count,1) - var(--space-2)),transparent 0 calc((100% + var(--space-2)) / var(--count,1)))}
   .nu-sticky-scenes__progress>*{flex:1 1 0}
