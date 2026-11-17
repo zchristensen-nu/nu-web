@@ -9,9 +9,6 @@
    DX.ms(token[, el])        a duration token in milliseconds, read from the stylesheet (never hard-code a time).
    DX.indicator(row)         the one moving marker of a row of choices ([data-indicator]): returns { to(item | null), refresh() }.
    DX.glide(target[, hash])  glide to an element (instant under reduced motion), keep the address, move focus there.
-   Reveal                    [data-reveal] and the children of [data-reveal-stagger] arrive once as they scroll into view. Only
-                             elements below the fold at load are armed, so nothing flashes and the page reads in order without
-                             this file; anything passed in a jump arrives too.
    [data-rise]               opt-in: a hero headline's lines rise once on load behind a line mask.
    [data-dx-rail]            a sideways rail: paddles that disable at the ends, a progress line, a count of the items in
                              view ("1–3 of 10"), 1:1 mouse drag, an item focused by the keyboard brought wholly into view
@@ -91,8 +88,6 @@
   DX.glide = function (target, hash) {
     if (!target || !target.scrollIntoView) return;
     if (DX.discloseTo) DX.discloseTo(target);     // a target inside a closed row: the row opens first
-    var waiting = target.closest('.is-waiting');   // a section still waiting to arrive is shown at once: the reader asked for it
-    if (waiting) waiting.classList.remove('is-waiting');
     if (!DX.reduced()) {
       var h = window.innerHeight, root = document.documentElement;
       var pad = (parseFloat(getComputedStyle(root).scrollPaddingTop) || 0) + (parseFloat(getComputedStyle(target).scrollMarginTop) || 0);
@@ -587,39 +582,8 @@
     });
   }
 
-  /* ---------- Reveal ---------- */
-  function reveal() {
-    // Pictures don't animate (Zach 11-17: "drop the image animations. it's weird how some do it and some don't"): an unmask stands still.
-    var targets = document.querySelectorAll('[data-reveal]:not([data-reveal="unmask"]),[data-reveal-stagger]');
-    if (!targets.length || DX.reduced() || !('IntersectionObserver' in window)) return;
-    var waiting = [];
-    var fold = window.innerHeight;
-    Array.prototype.forEach.call(targets, function (el) {
-      if (el.getBoundingClientRect().top < fold) return;  // already in view at load: leave it as it is
-      if (el.hasAttribute('data-reveal-stagger') && el.children.length <= 6) {  // a short row steps in (four steps at most); a long one arrives as one
-        for (var n = 0; n < el.children.length; n++) el.children[n].style.setProperty('--reveal-i', Math.min(n, 3));
-      }
-      el.classList.add('is-waiting');
-      waiting.push(el);
-    });
-    if (!waiting.length) return;
-    var hold = DX.ms('--dur-scene') + 4 * DX.ms('--reveal-stagger') + 50;
-    // Anything whose top has come into the window, or been passed (a jump to an anchor or the end of the page), arrives.
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) show(en.target); });
-    }, { root: DX.view, rootMargin: '99999px 0px -8% 0px', threshold: 0 });
-    function show(el) {
-      io.unobserve(el);
-      waiting = waiting.filter(function (w) { return w !== el; });
-      el.classList.add('is-revealing');
-      el.classList.remove('is-waiting');
-      window.setTimeout(function () { el.classList.remove('is-revealing'); }, hold);
-    }
-    var all = function () { waiting.slice().forEach(function (el) { io.unobserve(el); el.classList.remove('is-waiting'); }); waiting = []; };
-    waiting.forEach(function (el) { io.observe(el); });
-    window.addEventListener('beforeprint', all);
-    if (mq.addEventListener) mq.addEventListener('change', function () { if (mq.matches) all(); });
-  }
+  /* ---------- Reveal: retired 11-17 (Zach: sections fading in go, as the pictures' unmask and drift did). [data-reveal] and
+     [data-reveal-stagger] are inert; everything stands from the first paint. ---------- */
 
   /* ---------- Deep links: land again once the web fonts are in ----------
      A page opened with a #hash is scrolled by the browser while the fallback face is up; when FF Real Head arrives the text
@@ -645,7 +609,7 @@
     else window.addEventListener('load', wait);
   })();
 
-  var start = function () { disclosure(); rise(); reveal(); };
+  var start = function () { disclosure(); rise(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
 })();

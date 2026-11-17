@@ -338,18 +338,9 @@ input::placeholder,textarea::placeholder{color:var(--on-surface-muted);opacity:1
    - anything tied to scroll is a CSS scroll-driven animation inside @supports, linear with the scroll, with a still fallback;
    - focus rings are never transitioned; hover fills sit behind (hover:hover) so a tap never leaves one on. */
 
-/* ---------- Reveal ----------
-   `data-reveal` on an element, or `data-reveal-stagger` on a container whose children arrive in order: once, as it scrolls into
-   view, opacity and --reveal-shift (12px). Text and groups only: pictures never animate (Zach 11-17), so `data-reveal="unmask"`,
-   once a picture's frame opening from a crop, is inert (CSS and build/js/dx.js skip it). build/js/dx.js arms only what is below
-   the fold at load (.is-waiting), so nothing flashes and nothing is hidden without the script. A stagger steps its first four
-   children by --reveal-stagger; a longer list arrives as one unit. */
-@media (prefers-reduced-motion:no-preference){
-  [data-reveal]:not([data-reveal="unmask"]).is-waiting,[data-reveal-stagger].is-waiting>*{opacity:0;translate:0 var(--reveal-shift)}
-  [data-reveal]:not([data-reveal="unmask"]).is-revealing,[data-reveal-stagger].is-revealing>*{
-    transition:opacity var(--dur-slow) var(--ease-out),translate var(--dur-slow) var(--ease-out);
-    transition-delay:calc(var(--reveal-i,0) * var(--reveal-stagger))}
-}
+/* ---------- Reveal (retired 11-17) ----------
+   `data-reveal` and `data-reveal-stagger` once faded and slid sections and pictures in as they scrolled into view. Nothing enters
+   on scroll any more (Zach 11-17: pictures, then whole sections), so both attributes are inert; patterns may still carry them. */
 
 /* ---------- Rise (opt-in) ----------
    `data-rise` on a hero headline: its lines rise once on load behind a line mask. dx.js splits the lines, plays them and puts the
